@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expresso</string>
+    <string name="action_example">Exemplo ação</string>
+    <string name="action_settings">Configuração</string>
+    <string name="navigation_drawer_close">Fecha navigator</string>
+    <string name="navigation_drawer_open">Abrir navigator</string>
+
+</resources>

@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="com.alvino.mavappextintor.SobreFragment">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginBottom="10dp"
+        android:background="#fff"
+        android:drawableBottom="@drawable/alvino_sobre"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <TextView
+        android:id="@+id/google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoLink="web"
+        android:background="#fff"
+        android:clickable="true"
+        android:drawableLeft="@drawable/google"
+        android:gravity="center"
+        android:linksClickable="true"
+        android:padding="10dp"
+        android:shadowColor="#111"
+        android:text="+AlvinoFigueiredo" />
+
+
+    <TextView
+        android:id="@+id/facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoLink="web"
+        android:background="#fff"
+        android:clickable="true"
+        android:drawableLeft="@drawable/facebook"
+        android:gravity="center"
+        android:linksClickable="true"
+        android:padding="10dp"
+        android:shadowColor="#111"
+        android:text="Alvino.Figueiredo" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoLink="phone"
+        android:background="#fff"
+        android:drawableLeft="@drawable/whatapp"
+        android:gravity="center"
+        android:linksClickable="true"
+        android:padding="10dp"
+        android:shadowColor="#111"
+        android:text="@string/developer_url_whatapp" />
+
+</LinearLayout>
