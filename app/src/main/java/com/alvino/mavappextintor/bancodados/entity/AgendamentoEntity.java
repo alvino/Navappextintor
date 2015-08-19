@@ -1,5 +1,7 @@
 package com.alvino.mavappextintor.bancodados.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -9,6 +11,9 @@ public class AgendamentoEntity {
     private Date data;
     private int visitado;
     private int clienteId;
+    private SimpleDateFormat sd = new SimpleDateFormat("dd-M-yyyy");
+    ;
+
 
     public AgendamentoEntity() {
     }
@@ -48,8 +53,16 @@ public class AgendamentoEntity {
     }
 
     public void setClienteId(int clienteId) {
+
         this.clienteId = clienteId;
     }
 
+    public String getformatData() {
+        return sd.format(data);
+    }
+
+    public void setFormatDate(String string) throws ParseException {
+        Date data = sd.parse(string);
+    }
 
 }
