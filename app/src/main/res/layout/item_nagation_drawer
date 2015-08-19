@@ -15,7 +15,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textColor="#cf424242"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"

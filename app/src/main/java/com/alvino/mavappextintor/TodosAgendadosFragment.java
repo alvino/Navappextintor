@@ -2,49 +2,51 @@ package com.alvino.mavappextintor;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.alvino.mavappextintor.adapter.AdapterTodosAgendado;
+import com.alvino.mavappextintor.adapter.TodosAgendamentoAdapter;
 import com.alvino.mavappextintor.bancodados.BDAgendamento;
 import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TodosAgendadosFragment extends Fragment {
 
-    private ListView listaView;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
+    private RecyclerView mRecyclerView;
+    private List<AgendamentoEntity> mDataSet;
+    private TodosAgendamentoAdapter mAdpater;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View raiz = inflater.inflate(R.layout.fragment_todos_agendados, container, false);
-        listaView = (ListView) raiz.findViewById(R.id.listViewTodosAgendamento);
-
-        return raiz;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
 
         getActivity().setTitle(getResources().getString(R.string.title_actionbar_todos_os_agendamento));
 
-        BDAgendamento bd = new BDAgendamento(getActivity().getApplicationContext());
-        ArrayList<AgendamentoEntity> agendamentos = (ArrayList<AgendamentoEntity>) bd.buscarTodos();
-        listaView.setAdapter(new AdapterTodosAgendado(getActivity().getApplicationContext(), android.R.layout.simple_list_item_2, agendamentos));
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_recycler_view_lista, container, false);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.rv_lista);
 
+        mRecyclerView.setHasFixedSize(true);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        BDAgendamento bd = new BDAgendamento(getActivity().getApplicationContext());
+        mDataSet = bd.buscarTodos();
+
+        mAdpater = new TodosAgendamentoAdapter(getActivity(),mDataSet);
+        mRecyclerView.setAdapter(mAdpater);
+
+        return v;
     }
 
 }

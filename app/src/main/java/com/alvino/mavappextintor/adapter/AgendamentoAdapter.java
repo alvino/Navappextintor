@@ -1,7 +1,7 @@
 package com.alvino.mavappextintor.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +15,13 @@ import com.alvino.mavappextintor.bancodados.entity.ClienteEntity;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by alvino on 18/08/15.
  */
 public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.ViewHolder> {
+
     private ArrayList<AgendamentoEntity> mDataSet;
     private LayoutInflater mLayoutInflater;
     private Context c;
@@ -40,11 +42,26 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        AgendamentoEntity agendamento = mDataSet.get(i);
+
+        Date hoje = new Date();
+        long milissegundos = agendamento.getData().getTime() - hoje.getTime();
+        long dias = milissegundos / (24 * 60 * 60 * 1000);
+
         BDCliente db = new BDCliente(c);
+
         ClienteEntity cliente = db.buscarPorId(mDataSet.get(i).getClienteId());
 
-        viewHolder.tvCliente.setText(cliente.getNome());
-        viewHolder.tvData.setText(mDataSet.get(i).getformatData());
+        viewHolder.tvNome.setText(cliente.getNome());
+        viewHolder.tvData.setText(agendamento.getformatData());
+
+        if ((dias > -1.0) && (dias < 15.0)) {
+            viewHolder.tvNome.setTextColor(Color.rgb(235, 27, 36));
+            viewHolder.tvData.setTextColor(Color.rgb(235, 27, 36));
+        } else if(dias < 0.0) {
+            viewHolder.tvNome.setTextColor(Color.rgb(255, 138, 128));
+            viewHolder.tvData.setTextColor(Color.rgb(255, 138, 128));
+        }
     }
     
     public void setRecyclerViewOnClickListener(RecyclerViewOnClickListener clickListener){
@@ -53,6 +70,7 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
 
     @Override
     public int getItemCount() {
+
         return mDataSet.size();
     }
 
@@ -65,16 +83,17 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
         notifyItemRemoved(position);
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView tvCliente;
+        public TextView tvNome;
         public TextView tvData;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
 
-            tvCliente = (TextView) itemView.findViewById(R.id.tv_cliente);
-            tvData    = (TextView) itemView.findViewById(R.id.tv_data);
+            tvNome = (TextView) itemView.findViewById(R.id.tv_nome_agendamento);
+            tvData    = (TextView) itemView.findViewById(R.id.tv_data_agendamento);
 
             itemView.setOnClickListener(this);
         }

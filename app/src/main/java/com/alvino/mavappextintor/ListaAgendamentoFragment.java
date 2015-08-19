@@ -9,11 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alvino.mavappextintor.adapter.AdapterListaAgenda;
 import com.alvino.mavappextintor.adapter.AgendamentoAdapter;
 import com.alvino.mavappextintor.bancodados.BDAgendamento;
 import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
@@ -35,6 +32,9 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        getActivity().setTitle(getResources().getString(R.string.title_actionbar_lista_agendamento));
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recycler_view_lista, container, false);
 
@@ -58,17 +58,6 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        getActivity().setTitle(getResources().getString(R.string.title_actionbar_lista_agendamento));
-
-        agendamentos = null;
-        BDAgendamento bd = new BDAgendamento(getActivity().getApplicationContext());
-        agendamentos = (ArrayList<AgendamentoEntity>) bd.buscarTodos(0);
-        //listaView.setAdapter(new AdapterListaAgenda(getFragmentManager(), getActivity().getApplicationContext(), android.R.layout.simple_list_item_2, agendamentos));
-    }
 
 
     @Override
@@ -89,7 +78,7 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
                 dialog.cancel();
             }
         };
-        TextView tvCliente = (TextView) view.findViewById(R.id.tv_cliente);
+        TextView tvCliente = (TextView) view.findViewById(R.id.tv_nome_agendamento);
         String texto =  "Confirmar visita, para "+ tvCliente.getText();
         AlertDialogFragment dialogFragment = new AlertDialogFragment("Visita", texto, ok, cancelar);
         dialogFragment.show(getFragmentManager(), "ALERTDIALOGFRAGMENT");

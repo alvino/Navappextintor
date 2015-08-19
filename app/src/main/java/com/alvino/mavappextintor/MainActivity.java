@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
@@ -23,10 +24,12 @@ public class MainActivity extends ActionBarActivity
 
 
     private CharSequence mTitle;
+    private int pressBackPressed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -80,6 +83,13 @@ public class MainActivity extends ActionBarActivity
                         //.addToBackStack(String.valueOf(mTitle))
                 .commit();
 
+        pressBackPressed = 0;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        pressBackPressed = 0;
     }
 
     /**
@@ -115,5 +125,13 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if(pressBackPressed == 1){
+            super.onBackPressed();
+        } else {
+            Toast.makeText(getApplicationContext(),"Pressione mais uma vez para fechar.",Toast.LENGTH_SHORT).show();
+        }
+        pressBackPressed ++;
+    }
 }
