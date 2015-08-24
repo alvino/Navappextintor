@@ -1,51 +1,50 @@
 package com.alvino.mavappextintor.adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alvino.mavappextintor.R;
 import com.alvino.mavappextintor.bancodados.Cliente;
-import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
-import com.alvino.mavappextintor.bancodados.entity.ClienteEntity;
+import com.alvino.mavappextintor.bancodados.Extintor;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by alvino on 19/08/15.
  */
-public class ClienteAdapter  extends RecyclerView.Adapter<ClienteAdapter.ViewHolder> {
+public class ExtintorAdapter extends RecyclerView.Adapter<ExtintorAdapter.ViewHolder> {
 
-    private final List<Cliente> mDataSet;
+    private final List<Extintor> mDataSet;
     private final Context context;
     private LayoutInflater mLayoutInflater;
     private RecyclerViewOnClickListener mRecyclerViewOnClickListener = null;
 
-    public ClienteAdapter(Context activity, List<Cliente> mDataSet) {
+    public ExtintorAdapter(Context activity, List<Extintor> mDataSet) {
         this.mDataSet = mDataSet;
         this.mLayoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = activity;
     }
 
     @Override
-    public ClienteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = mLayoutInflater.inflate(R.layout.modelo_lista_recyclerview_cliente, parent, false);
+    public ExtintorAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = mLayoutInflater.inflate(R.layout.modelo_lista_recyclerview_extintor, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ClienteAdapter.ViewHolder holder, int position) {
-        Cliente c = mDataSet.get(position);
-        holder.tvName.setText(c.getNome_fantazia());
+    public void onBindViewHolder(ExtintorAdapter.ViewHolder holder, int position) {
+        Extintor e = mDataSet.get(position);
+
+        holder.tvTipo.setText(e.getTipo());
+        holder.tvData.setText(e.getData_validade());
+
     }
 
     public void setmRecyclerViewOnClickListener(RecyclerViewOnClickListener mRecyclerViewOnClickListener) {
@@ -62,26 +61,25 @@ public class ClienteAdapter  extends RecyclerView.Adapter<ClienteAdapter.ViewHol
         notifyItemRemoved(position);
     }
 
-    public Cliente getItemCliente(int position) {
+    public Extintor getItemExtintor(int position) {
         return mDataSet.get(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView tvName;
+        public TextView tvTipo;
+        public TextView tvData;
         public ImageButton ibRemove;
-        public ImageButton ibAgendar;
         public ImageButton ibEditar;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            tvName = (TextView) itemView.findViewById(R.id.tv_nome_lista_cliente);
-            ibRemove = (ImageButton) itemView.findViewById(R.id.ib_remover_lista_cliente);
-            ibEditar = (ImageButton) itemView.findViewById(R.id.ib_editar_lista_cliente);
-            ibAgendar = (ImageButton) itemView.findViewById(R.id.ib_agendamento_lista_cliente);
+            tvTipo = (TextView) itemView.findViewById(R.id.tv_tipo_lista_extintor);
+            tvData = (TextView) itemView.findViewById(R.id.tv_data_lista_extintor);
+            ibRemove = (ImageButton) itemView.findViewById(R.id.ib_remover_lista_extintor);
+            ibEditar = (ImageButton) itemView.findViewById(R.id.ib_editar_lista_extintor);
 
-            ibAgendar.setOnClickListener(this);
             ibEditar.setOnClickListener(this);
             ibRemove.setOnClickListener(this);
         }

@@ -11,14 +11,13 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.alvino.mavappextintor.bancodados.BDAgendamento;
-import com.alvino.mavappextintor.bancodados.BDCliente;
-import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
-import com.alvino.mavappextintor.bancodados.entity.ClienteEntity;
+import com.alvino.mavappextintor.bancodados.Cliente;
+import com.alvino.mavappextintor.bancodados.ClienteProvider;
+import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.bancodados.VisitaProvider;
 import com.alvino.mavappextintor.core.ManageFile;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -99,22 +98,22 @@ class SalvarArquivoThread extends Thread{
 
         StringBuffer txt_arquivo = new StringBuffer();
 
-        BDAgendamento agendamentoList = new BDAgendamento(context);
-        List<AgendamentoEntity> agendamentos = agendamentoList.buscarTodos();
 
-        count = agendamentos.size();
+        List<Visita> visitas = (List<Visita>) new VisitaProvider(context).all();
 
-        BDCliente clienteEntity = new BDCliente(context);
+        count = visitas.size();
+
+        ClienteProvider cp = new ClienteProvider(context);
 
         //txt_arquivo.append("id cliente, nome, email, telefone, endereco, id agendamento, data, visitado\n");
 
-        for (AgendamentoEntity agendamento : agendamentos) {
+        for (Visita v : visitas) {
 
             contador += 1;
 
-            ClienteEntity cliente = clienteEntity.buscarPorId(agendamento.getClienteId());
+            Cliente cliente = cp.get(v.getCliente());
 
-            StringBuffer sb = parseStringBuffer(cliente, agendamento);
+            StringBuffer sb = parseStringBuffer(cliente, v);
 
 
             txt_arquivo.append(sb.toString());
@@ -147,16 +146,21 @@ class SalvarArquivoThread extends Thread{
         mHandler.post(new Display(mProgressStatus,texto));
     }
 
-    private StringBuffer parseStringBuffer(ClienteEntity cliente,AgendamentoEntity agendamento) {
+    private StringBuffer parseStringBuffer(Cliente cliente,Visita visita) {
         StringBuffer sb = new StringBuffer();
         sb.append(cliente.getId() + ",");
-        sb.append(cliente.getNome() + ",");
+        sb.append(cliente.getNome_fantazia() + ",");
+        sb.append(cliente.getProprietario() + ",");
+        sb.append(cliente.getResponsavel() + ",");
+        sb.append(cliente.getFone() + ",");
         sb.append(cliente.getEmail() + ",");
-        sb.append(cliente.getTelefone() + ",");
         sb.append(cliente.getEndereco() + ",");
-        sb.append(agendamento.getId() + ",");
-        sb.append(new SimpleDateFormat("dd/MM/yyyy").format(agendamento.getData()) + ",");
-        sb.append(agendamento.getVisitado() + "");
+        sb.append(visita.getId() + ",");
+        sb.append(visita.getData_agendada() + ",");
+        sb.append(visita.getData_atendimento() + ",");
+        sb.append(visita.getData_criacao() + ",");
+        sb.append(visita.getManutenido() + ",");
+        sb.append(visita.getObs() + "");
         sb.append("\n");
         return sb;
     }

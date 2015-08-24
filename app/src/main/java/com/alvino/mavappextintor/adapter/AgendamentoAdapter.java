@@ -9,28 +9,29 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alvino.mavappextintor.R;
-import com.alvino.mavappextintor.bancodados.BDCliente;
-import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
-import com.alvino.mavappextintor.bancodados.entity.ClienteEntity;
+import com.alvino.mavappextintor.bancodados.Cliente;
+import com.alvino.mavappextintor.bancodados.ClienteProvider;
+import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by alvino on 18/08/15.
  */
 public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.ViewHolder> {
 
-    private ArrayList<AgendamentoEntity> mDataSet;
+    private List<Visita> mDataSet;
     private LayoutInflater mLayoutInflater;
-    private Context c;
+    private Context context;
     private RecyclerViewOnClickListener mRecyclerViewOnClickListener = null;
 
-    public AgendamentoAdapter(Context c,ArrayList<AgendamentoEntity> mDataSet) {
+    public AgendamentoAdapter(Context c,List<Visita> mDataSet) {
         this.mDataSet = mDataSet;
         this.mLayoutInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.c = c;
+        this.context = c;
     }
 
     @Override
@@ -42,18 +43,20 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        AgendamentoEntity agendamento = mDataSet.get(i);
+        Visita v = mDataSet.get(i);
+
 
         Date hoje = new Date();
-        long milissegundos = agendamento.getData().getTime() - hoje.getTime();
+        Date agendada = SimplesDataFormatada.formatar(v.getData_agendada());
+        long milissegundos = agendada.getTime() - hoje.getTime();
         long dias = milissegundos / (24 * 60 * 60 * 1000);
 
-        BDCliente db = new BDCliente(c);
+        ClienteProvider db = new ClienteProvider(context);
 
-        ClienteEntity cliente = db.buscarPorId(mDataSet.get(i).getClienteId());
+        Cliente cliente = db.get(mDataSet.get(i).getCliente());
 
-        viewHolder.tvNome.setText(cliente.getNome());
-        viewHolder.tvData.setText(agendamento.getformatData());
+        viewHolder.tvNome.setText(cliente.getNome_fantazia());
+        viewHolder.tvData.setText(v.getData_agendada());
 
         if ((dias > -1.0) && (dias < 15.0)) {
             viewHolder.tvNome.setTextColor(Color.rgb(235, 27, 36));
@@ -74,7 +77,7 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
         return mDataSet.size();
     }
 
-    public AgendamentoEntity getItemEntity(int position) {
+    public Visita getItemVisita(int position) {
         return mDataSet.get(position);
     }
 

@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alvino.mavappextintor.R;
-import com.alvino.mavappextintor.bancodados.BDCliente;
-import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
-import com.alvino.mavappextintor.bancodados.entity.ClienteEntity;
+import com.alvino.mavappextintor.bancodados.Cliente;
+import com.alvino.mavappextintor.bancodados.ClienteProvider;
+import com.alvino.mavappextintor.bancodados.Visita;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class TodosAgendamentoAdapter extends RecyclerView.Adapter<TodosAgendamentoAdapter.ViewHolder> {
 
-    private final List<AgendamentoEntity> mDataSet;
+    private final List<Visita> mDataSet;
     private final LayoutInflater mLayoutInflate;
     private final Context context;
 
-    public TodosAgendamentoAdapter(Context c, List<AgendamentoEntity> mDataSet) {
+    public TodosAgendamentoAdapter(Context c, List<Visita> mDataSet) {
         this.mDataSet = mDataSet;
         this.mLayoutInflate = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = c;
@@ -39,15 +39,15 @@ public class TodosAgendamentoAdapter extends RecyclerView.Adapter<TodosAgendamen
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        AgendamentoEntity agendamento = mDataSet.get(position);
-        BDCliente db = new BDCliente(context);
-        ClienteEntity cliente = db.buscarPorId(agendamento.getClienteId());
+        Visita visita = mDataSet.get(position);
 
-        holder.tvNome.setText(cliente.getNome());
-        if (agendamento.getVisitado() != 1) {
-            holder.tvData.setText(agendamento.getformatData());
+        Cliente cliente = new ClienteProvider(context).get(visita.getCliente());
+
+        holder.tvNome.setText(cliente.getNome_fantazia());
+        if (visita.getData_agendada() != null) {
+            holder.tvData.setText(visita.getData_agendada());
         } else {
-            holder.tvData.setText("Visitado " + agendamento.getformatData());
+            holder.tvData.setText("Visitado " + visita.getData_atendimento());
             holder.tvData.setTextSize(14);
             holder.tvNome.setTextColor(Color.rgb(235, 27, 36));
             holder.tvData.setTextColor(Color.rgb(235, 27, 36));

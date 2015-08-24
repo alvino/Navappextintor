@@ -6,40 +6,58 @@
     tools:context="com.alvino.mavappextintor.CadastroClienteFragment">
 
     <EditText
-        android:id="@+id/txtNome"
+        android:id="@+id/txtNome_fantasia_cadastro_cliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1.00"
         android:ems="10"
-        android:hint="@string/txt_nome"
+        android:hint="@string/txt_nome_fantasia"
         android:inputType="textPersonName">
 
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:inputType="textPersonName"
+        android:layout_weight="1.00"
+        android:ems="10"
+        android:hint="@string/txt_proprietario"
+        android:id="@+id/txtProprietario_cadastro_cliente" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:layout_weight="1.00"
+        android:ems="10"
+        android:hint="@string/txt_responsavel"
+        android:id="@+id/txtResponsavel_cadastro_cliente" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:layout_weight="1.00"
+        android:ems="10"
+        android:hint="@string/txt_telefone"
+        android:id="@+id/txtPhone_cadastro_cliente"/>
+
+    <EditText
+        android:id="@+id/txtEmail_cadastro_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.00"
         android:ems="10"
         android:hint="@string/txt_email"
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/txtTelefone"
+        android:id="@+id/txtEndereco_cadastro_cliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.00"
-        android:ems="10"
-        android:hint="@string/txt_telefone"
-        android:inputType="phone" />
-
-    <EditText
-        android:id="@+id/txtEndereco"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.00"
+        android:layout_weight="2.0"
         android:ems="10"
         android:hint="@string/txt_endereco"
         android:inputType="textPostalAddress" />
@@ -50,13 +68,13 @@
         android:layout_weight="1.00">
 
         <Button
-            android:id="@+id/cancelar"
+            android:id="@+id/cancelar_cadastro_cliente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancelar" />
 
         <Button
-            android:id="@+id/salvar"
+            android:id="@+id/salvar_cadastro_cliente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="150dp"

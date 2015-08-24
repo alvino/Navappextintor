@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity
                 fragment = new CadastroClienteFragment();
                 break;
             case 3:
-                fragment = new TodosAgendadosFragment();
+                fragment = new ListaTodosAgendadosFragment();
                 break;
             case 4:
                 fragment = new ConverteBancoEmCSVFragment();
@@ -80,7 +80,6 @@ public class MainActivity extends ActionBarActivity
         onSectionAttached(position);
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
-                        //.addToBackStack(String.valueOf(mTitle))
                 .commit();
 
         pressBackPressed = 0;

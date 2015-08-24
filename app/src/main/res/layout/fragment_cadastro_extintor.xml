@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.alvino.mavappextintor.CadastroClienteFragment">
+
+    <EditText
+        android:id="@+id/txtTipo_cadastro_extintor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="@string/txt_tipo"
+        android:inputType="text">
+
+        <requestFocus />
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp" >
+
+        <EditText
+            android:id="@+id/txtData_validade_cadastro_extintor"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_weight="2"
+            android:editable="false"
+            android:ems="10"
+            android:hint="@string/txt_data_validade"
+            android:inputType="date" />
+
+        <ImageButton
+            android:id="@+id/ib_calendario_cadastro_extintor"
+            android:layout_width="38dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:padding="3dp"
+            android:src="@drawable/agendamento"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.00">
+
+        <Button
+            android:id="@+id/cancelar_cadastro_extintor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar" />
+
+        <Button
+            android:id="@+id/salvar_cadastro_extintor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="150dp"
+            android:text="Salvar" />
+    </LinearLayout>
+
+</LinearLayout>
+

@@ -18,6 +18,8 @@
     <string name="title_actionbar_todos_os_agendamento">Todas as Visitas Agendadas</string>
     <string name="title_actionbar_converte_dados_para_csv">Converte Dados P/ CSV</string>
     <string name="title_actionbar_sobre">Desenvolvido</string>
+    <string name="title_actionbar_cadastro_de_extintor">Cadastro de Extintor</string>
+    <string name="title_actionbar_lista_extintor">Lista de Extintores</string>
 
 
     <array name="nav_drawer_menu">
@@ -34,10 +36,19 @@
     <string name="developer_url_facebook">https://www.facebook.com/alvino.figueiredo</string>
     <string name="developer_url_whatapp">(62) 8180-1912</string>
 
-    <string name="txt_nome">Nome</string>
+    <string name="txt_nome_fantasia">Nome Fantasia</string>
+    <string name="txt_proprietario">Proprietario</string>
+    <string name="txt_responsavel">Responsavel</string>
     <string name="txt_email">Email</string>
     <string name="txt_telefone">Telefone</string>
     <string name="txt_endereco">Endereço</string>
+
+    <string name="txt_tipo">Tipo</string>
+    <string name="txt_data_validade">Validade</string>
+    <string name="txt_manutenido">Manutenido</string>
+    <string name="txt_obs">Observação</string>
+
+    <string name="txt_cadastro_extintor">Cadastra Extintor</string>
 
     <string name="txt_cria_csv">Criar CSV</string>
 

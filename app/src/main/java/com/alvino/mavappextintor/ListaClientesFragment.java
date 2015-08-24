@@ -14,10 +14,11 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.alvino.mavappextintor.adapter.ClienteAdapter;
-import com.alvino.mavappextintor.bancodados.BDAgendamento;
-import com.alvino.mavappextintor.bancodados.BDCliente;
-import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
-import com.alvino.mavappextintor.bancodados.entity.ClienteEntity;
+import com.alvino.mavappextintor.bancodados.Cliente;
+import com.alvino.mavappextintor.bancodados.ClienteProvider;
+import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.bancodados.VisitaProvider;
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.dialog.AlertDialogFragment;
 import com.alvino.mavappextintor.dialog.DateDialog;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
@@ -25,17 +26,18 @@ import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 public class ListaClientesFragment extends Fragment implements RecyclerViewOnClickListener {
 
-    //ListView listaViewCliente = null;
     private View v;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private List<ClienteEntity> mDataSet;
+    private Set<Cliente> mDataSet;
     private ClienteAdapter mAdapter;
     private Date data;
+    private Fragment fragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,10 +54,10 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        BDCliente db = new BDCliente(getActivity().getApplicationContext());
-        mDataSet = db.buscarTodos();
+        ClienteProvider db = new ClienteProvider(getActivity().getApplicationContext());
+        mDataSet = db.all();
 
-        mAdapter = new ClienteAdapter(getActivity(), mDataSet);
+        mAdapter = new ClienteAdapter(getActivity(), (List<Cliente>) mDataSet);
         mAdapter.setmRecyclerViewOnClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         return v;
@@ -64,11 +66,11 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
 
     @Override
     public void onClickListener(View view, final int position) {
-        final ClienteEntity entity = mAdapter.getItemEntity(position);
+        final Cliente c = mAdapter.getItemCliente(position);
 
         switch (view.getId()) {
             case R.id.ib_agendamento_lista_cliente:
-                final ClienteEntity cliente = entity;
+                final Cliente cliente = c;
                 DatePickerDialog.OnDateSetListener setListener = new DatePickerDialog.OnDateSetListener() {
 
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -79,12 +81,12 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
 
                         String msg = "";
 
-                        AgendamentoEntity agendamento = new AgendamentoEntity();
-                        agendamento.setClienteId(cliente.getId());
-                        agendamento.setData(data);
+                        Visita v = new Visita();
+                        v.setCliente(cliente.getId());
+                        v.setData_agendada( SimplesDataFormatada.formatar(data) );
 
-                        BDAgendamento bd = new BDAgendamento(getActivity());
-                        bd.inserir(agendamento);
+                        VisitaProvider bd = new VisitaProvider(getActivity());
+                        bd.insert(v);
 
                         msg = "Salvo com sucesso. ";
 
@@ -101,12 +103,14 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
             case R.id.ib_editar_lista_cliente:
 
 
-                Fragment fragment = new CadastroClienteFragment().newInstance(
-                        entity.getId(),
-                        entity.getNome(),
-                        entity.getEmail(),
-                        entity.getTelefone(),
-                        entity.getEndereco()
+                fragment = new CadastroClienteFragment().newInstance(
+                        c.getId(),
+                        c.getNome_fantazia(),
+                        c.getProprietario(),
+                        c.getResponsavel(),
+                        c.getFone(),
+                        c.getEmail(),
+                        c.getEndereco()
                 );
 
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment)
@@ -115,8 +119,8 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
 
                 break;
             case R.id.ib_remover_lista_cliente:
-                List<AgendamentoEntity> buscaPorCliente = new BDAgendamento(getActivity()).buscaPorCliente(entity.getId());
-                if (buscaPorCliente.size() != 0) {
+                List<Visita> visitaList = (List<Visita>) new VisitaProvider(getActivity()).allCliente(c.getId());
+                if (visitaList.size() != 0) {
                     Toast to = Toast.makeText(getActivity(), "Cliente possui dados de agendamento", Toast.LENGTH_SHORT);
                     to.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
                     to.show();
@@ -125,14 +129,14 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                 DialogInterface.OnClickListener ok = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        List<AgendamentoEntity> buscaPorCliente = new BDAgendamento(getActivity()).buscaPorCliente(entity.getId());
-                        if (buscaPorCliente.size() != 0) {
-                            for (AgendamentoEntity agendamento : buscaPorCliente) {
-                                new BDAgendamento(getActivity()).deletar(agendamento);
+                        List<Visita> visitaList1 = (List<Visita>) new VisitaProvider(getActivity()).allCliente(c.getId());
+                        if (visitaList1.size() != 0) {
+                            for (Visita agendamento : visitaList1) {
+                                new VisitaProvider(getActivity()).delete(agendamento);
                             }
                         }
-                        String texto = "Removido o(s) agendamento(s) e o cliente: " + entity.getNome() + " com sucesso.";
-                        new BDCliente(getActivity()).deletar(entity);
+                        String texto = "Removido o(s) agendamento(s) e o cliente: " + c.getNome_fantazia() + " com sucesso.";
+                        new ClienteProvider(getActivity()).delete(c);
 
                         Toast to = Toast.makeText(getActivity(), texto, Toast.LENGTH_SHORT);
                         to.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
@@ -151,6 +155,15 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                 AlertDialogFragment dialogFragment = new AlertDialogFragment("", "Remover o usuario", ok, cancelar);
                 dialogFragment.show(getFragmentManager(), "ALERTDIALOGFRAGMENT");
                 break;
+            case R.id.ib_extintor_lista_cliente:
+
+                fragment = new ListaExtintorFragment().newInstance(c.getId());
+
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment)
+                        .addToBackStack("ListaCliente")
+                        .commit();
+                break;
+
         }
 
     }

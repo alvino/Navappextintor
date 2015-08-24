@@ -7,21 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.alvino.mavappextintor.adapter.TodosAgendamentoAdapter;
-import com.alvino.mavappextintor.bancodados.BDAgendamento;
-import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
+import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.bancodados.VisitaProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class TodosAgendadosFragment extends Fragment {
+public class ListaTodosAgendadosFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-    private List<AgendamentoEntity> mDataSet;
+    private List<Visita> mDataSet;
     private TodosAgendamentoAdapter mAdpater;
 
     @Override
@@ -40,8 +38,7 @@ public class TodosAgendadosFragment extends Fragment {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        BDAgendamento bd = new BDAgendamento(getActivity().getApplicationContext());
-        mDataSet = bd.buscarTodos();
+        mDataSet = (List<Visita>) new VisitaProvider(getActivity()).all();
 
         mAdpater = new TodosAgendamentoAdapter(getActivity(),mDataSet);
         mRecyclerView.setAdapter(mAdpater);
