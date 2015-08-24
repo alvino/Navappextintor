@@ -22,8 +22,6 @@ public class MainActivity extends ActionBarActivity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-
-    private CharSequence mTitle;
     private int pressBackPressed = 0;
 
     @Override
@@ -33,7 +31,7 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -97,8 +95,8 @@ public class MainActivity extends ActionBarActivity
      * @param number retorna a string corespondente dentro do array nav_drawer_menu
      */
     public void onSectionAttached(int number) {
-        String[] navDrawerMenu = getResources().getStringArray(R.array.nav_drawer_menu);
-        mTitle = navDrawerMenu[number];
+        //String[] navDrawerMenu = getResources().getStringArray(R.array.nav_drawer_menu);
+        //mTitle = navDrawerMenu[number];
     }
 
 

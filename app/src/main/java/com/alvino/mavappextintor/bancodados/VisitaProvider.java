@@ -6,29 +6,30 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.alvino.mavappextintor.bancodados.inteface.CRUD;
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by alvino on 21/08/15.
  */
 public class VisitaProvider implements CRUD<Visita> {
 
-    private final BancoDeDadosProvider dbp;
     private SQLiteDatabase db;
     private String tabela;
+    private String[] colunas;
 
     public VisitaProvider(Context context) {
-        dbp = new BancoDeDadosProvider(context);
-        db = dbp.getWritableDatabase();
+        db = new BancoDeDadosProvider(context).getWritableDatabase();
         tabela = BancoDeDadosProvider.TABELA_VISITA;
+        colunas = BancoDeDadosProvider.COLUNAS_VISITA;
     }
 
     @Override
     public long insert(Visita visita) {
         ContentValues values = visita.getContentValue();
-        return db.insert(tabela,null,values);
+        return db.insert(tabela, null, values);
     }
 
     @Override
@@ -43,10 +44,9 @@ public class VisitaProvider implements CRUD<Visita> {
     }
 
     @Override
-    public Set<Visita> all() {
-        Set<Visita> set = new HashSet<Visita>();
-        String[] colunas = dbp.getColunasExtintor();
-        Cursor cursor = db.query(tabela, colunas, null, null,null, null, "nome ASC");
+    public List<Visita> all() {
+        List<Visita> list = new ArrayList<Visita>();
+        Cursor cursor = db.query(tabela, colunas, null, null, null, null, colunas[1] + " ASC");
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -56,24 +56,24 @@ public class VisitaProvider implements CRUD<Visita> {
                 Visita v = new Visita(
                         cursor.getLong(0),
                         cursor.getLong(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
+                        SimplesDataFormatada.formatar(cursor.getString(2), SimplesDataFormatada.YYYYMDD),
+                        SimplesDataFormatada.formatar(cursor.getString(3), SimplesDataFormatada.YYYYMDD),
+                        SimplesDataFormatada.formatar(cursor.getString(4), SimplesDataFormatada.YYYYMDD),
                         cursor.getString(5),
-                        cursor.getString(6)
+                        cursor.getString(6),
+                        cursor.getString(7)
                 );
-                set.add(v);
+                list.add(v);
 
             } while (cursor.moveToNext());
         }
 
-        return set;
+        return list;
     }
 
-    public Set<Visita> allCliente(long id) {
-        Set<Visita> set = new HashSet<Visita>();
-        String[] colunas = dbp.getColunasExtintor();
-        Cursor cursor = db.query(tabela, colunas, "cliente = "+id, null,null, null, null);
+    public List<Visita> allCliente(long id) {
+        List<Visita> list = new ArrayList<Visita>();
+        Cursor cursor = db.query(tabela, colunas, "cliente = " + id, null, null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -83,23 +83,23 @@ public class VisitaProvider implements CRUD<Visita> {
                 Visita v = new Visita(
                         cursor.getLong(0),
                         cursor.getLong(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
+                        SimplesDataFormatada.formatar(cursor.getString(2), SimplesDataFormatada.YYYYMDD),
+                        SimplesDataFormatada.formatar(cursor.getString(3), SimplesDataFormatada.YYYYMDD),
+                        SimplesDataFormatada.formatar(cursor.getString(4), SimplesDataFormatada.YYYYMDD),
                         cursor.getString(5),
-                        cursor.getString(6)
+                        cursor.getString(6),
+                        cursor.getString(7)
                 );
-                set.add(v);
+                list.add(v);
 
             } while (cursor.moveToNext());
         }
 
-        return set;
+        return list;
     }
 
     @Override
     public Visita get(long id) {
-        String[] colunas = dbp.getColunasExtintor();
         Cursor cursor = db.query(tabela, colunas, "id = " + id, null, null, null, null);
 
         Visita v = null;
@@ -109,21 +109,21 @@ public class VisitaProvider implements CRUD<Visita> {
             v = new Visita(
                     cursor.getLong(0),
                     cursor.getLong(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
+                    SimplesDataFormatada.formatar(cursor.getString(2), SimplesDataFormatada.YYYYMDD),
+                    SimplesDataFormatada.formatar(cursor.getString(3), SimplesDataFormatada.YYYYMDD),
+                    SimplesDataFormatada.formatar(cursor.getString(4), SimplesDataFormatada.YYYYMDD),
                     cursor.getString(5),
-                    cursor.getString(6)
+                    cursor.getString(6),
+                    cursor.getString(7)
             );
         }
 
         return v;
     }
 
-    public Set<Visita> allNotAtendido() {
-        Set<Visita> set = new HashSet<Visita>();
-        String[] colunas = dbp.getColunasExtintor();
-        Cursor cursor = db.query(tabela, colunas, "data_atendimento = null", null,null, null, null);
+    public List<Visita> allNotAtendido() {
+        List<Visita> list = new ArrayList<Visita>();
+        Cursor cursor = db.query(tabela, colunas, "atendido like ?", new String[]{"nao"}, null, null, colunas[2] + " ASC");
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -133,17 +133,18 @@ public class VisitaProvider implements CRUD<Visita> {
                 Visita v = new Visita(
                         cursor.getLong(0),
                         cursor.getLong(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
+                        SimplesDataFormatada.formatar(cursor.getString(2), SimplesDataFormatada.YYYYMDD),
+                        SimplesDataFormatada.formatar(cursor.getString(3), SimplesDataFormatada.YYYYMDD),
+                        SimplesDataFormatada.formatar(cursor.getString(4), SimplesDataFormatada.YYYYMDD),
                         cursor.getString(5),
-                        cursor.getString(6)
+                        cursor.getString(6),
+                        cursor.getString(7)
                 );
-                set.add(v);
+                list.add(v);
 
             } while (cursor.moveToNext());
         }
 
-        return set;
+        return list;
     }
 }

@@ -58,8 +58,7 @@ public class Extintor {
 
     public ContentValues getContentValue() {
         ContentValues valores = new ContentValues();
-        if ((id != 0) || (id != null))
-            valores.put("id", this.getId());
+        valores.put("id", this.getId());
         valores.put("cliente", this.getCliente());
         valores.put("tipo", this.getTipo());
         valores.put("data_validade", this.getData_validade());

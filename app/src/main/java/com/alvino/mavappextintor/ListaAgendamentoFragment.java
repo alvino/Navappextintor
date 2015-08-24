@@ -49,7 +49,7 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         VisitaProvider bd = new VisitaProvider(getActivity().getApplicationContext());
-        mDataSet = (List<Visita>) bd.allNotAtendido();
+        mDataSet = bd.allNotAtendido();
 
         mAdapter = new AgendamentoAdapter(getActivity(),mDataSet);
         mAdapter.setRecyclerViewOnClickListener(this);
@@ -83,7 +83,8 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
                     case R.id.salvar_dialog_visita:
 
                         Visita visita = mAdapter.getItemVisita(position);
-                        visita.setData_atendimento( SimplesDataFormatada.formatar( new Date() ) );
+                        visita.setData_atendimento(new Date());
+                        visita.setAtendido("sim");
                         visita.setManutenido(dialogFragmente.getManutenido());
                         visita.setObs(dialogFragmente.getObs());
 
@@ -94,6 +95,7 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
                 }
             }
         });
+        dialogFragmente.show(getFragmentManager(),"ListaAgendamento");
 
         /*
         DialogInterface.OnClickListener ok = new DialogInterface.OnClickListener() {

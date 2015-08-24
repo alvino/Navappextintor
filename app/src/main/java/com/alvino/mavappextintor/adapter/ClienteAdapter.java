@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.alvino.mavappextintor.R;
 import com.alvino.mavappextintor.bancodados.Cliente;
-import com.alvino.mavappextintor.bancodados.entity.AgendamentoEntity;
-import com.alvino.mavappextintor.bancodados.entity.ClienteEntity;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
 import java.util.List;
@@ -72,6 +70,7 @@ public class ClienteAdapter  extends RecyclerView.Adapter<ClienteAdapter.ViewHol
         public ImageButton ibRemove;
         public ImageButton ibAgendar;
         public ImageButton ibEditar;
+        public ImageButton ibExtintor;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -80,10 +79,12 @@ public class ClienteAdapter  extends RecyclerView.Adapter<ClienteAdapter.ViewHol
             ibRemove = (ImageButton) itemView.findViewById(R.id.ib_remover_lista_cliente);
             ibEditar = (ImageButton) itemView.findViewById(R.id.ib_editar_lista_cliente);
             ibAgendar = (ImageButton) itemView.findViewById(R.id.ib_agendamento_lista_cliente);
+            ibExtintor = (ImageButton) itemView.findViewById(R.id.ib_extintor_lista_cliente);
 
             ibAgendar.setOnClickListener(this);
             ibEditar.setOnClickListener(this);
             ibRemove.setOnClickListener(this);
+            ibExtintor.setOnClickListener(this);
         }
 
         @Override

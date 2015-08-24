@@ -4,30 +4,33 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.alvino.mavappextintor.bancodados.inteface.CRUD;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by alvino on 21/08/15.
  */
 public class ExtintorProvider implements CRUD<Extintor> {
 
-    private final BancoDeDadosProvider dbp;
+    private final String[] colunas;
     private SQLiteDatabase db;
     private String tabela;
 
     public ExtintorProvider(Context context) {
-        dbp = new BancoDeDadosProvider(context);
-        db = dbp.getWritableDatabase();
+        db = new BancoDeDadosProvider(context).getWritableDatabase();
         tabela = BancoDeDadosProvider.TABELA_EXTINTOR;
+        colunas = BancoDeDadosProvider.COLUNAS_EXTINTOR;
     }
 
     @Override
     public long insert(Extintor extintor) {
         ContentValues values = extintor.getContentValue();
+        Log.i("Extintor Provider insert", values.toString());
         return db.insert(tabela,null,values);
     }
 
@@ -43,10 +46,9 @@ public class ExtintorProvider implements CRUD<Extintor> {
     }
 
     @Override
-    public Set<Extintor> all() {
-        Set<Extintor> set = new HashSet<Extintor>();
-        String[] colunas = dbp.getColunasExtintor();
-        Cursor cursor = db.query(tabela, colunas, null, null,null, null, "nome ASC");
+    public List<Extintor> all() {
+        List<Extintor> List = new ArrayList<Extintor>();
+        Cursor cursor = db.query(tabela, colunas, null, null,null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -59,17 +61,16 @@ public class ExtintorProvider implements CRUD<Extintor> {
                         cursor.getString(2),
                         cursor.getString(3)
                 );
-                set.add(e);
+                List.add(e);
 
             } while (cursor.moveToNext());
         }
 
-        return set;
+        return List;
     }
 
     @Override
     public Extintor get(long id) {
-        String[] colunas = dbp.getColunasExtintor();
         Cursor cursor = db.query(tabela, colunas, "id = " + id, null, null, null, null);
 
         Extintor e = null;
@@ -87,10 +88,9 @@ public class ExtintorProvider implements CRUD<Extintor> {
         return e;
     }
 
-    public Set<Extintor> allCliente(Long mId) {
-        Set<Extintor> set = new HashSet<Extintor>();
-        String[] colunas = dbp.getColunasExtintor();
-        Cursor cursor = db.query(tabela, colunas, "cliente = "+mId, null,null, null, null);
+    public List<Extintor> allCliente(Long mId) {
+        List<Extintor> List = new ArrayList<Extintor>();
+        Cursor cursor = db.query(tabela, colunas, "cliente = "+mId,null,null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -103,11 +103,11 @@ public class ExtintorProvider implements CRUD<Extintor> {
                         cursor.getString(2),
                         cursor.getString(3)
                 );
-                set.add(e);
+                List.add(e);
 
             } while (cursor.moveToNext());
         }
 
-        return set;
+        return List;
     }
 }

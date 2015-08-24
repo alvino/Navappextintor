@@ -47,7 +47,7 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
 
 
         Date hoje = new Date();
-        Date agendada = SimplesDataFormatada.formatar(v.getData_agendada());
+        Date agendada = v.getData_agendada();
         long milissegundos = agendada.getTime() - hoje.getTime();
         long dias = milissegundos / (24 * 60 * 60 * 1000);
 
@@ -56,7 +56,7 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
         Cliente cliente = db.get(mDataSet.get(i).getCliente());
 
         viewHolder.tvNome.setText(cliente.getNome_fantazia());
-        viewHolder.tvData.setText(v.getData_agendada());
+        viewHolder.tvData.setText(SimplesDataFormatada.formatar(v.getData_agendada(), SimplesDataFormatada.DDMYYYY));
 
         if ((dias > -1.0) && (dias < 15.0)) {
             viewHolder.tvNome.setTextColor(Color.rgb(235, 27, 36));

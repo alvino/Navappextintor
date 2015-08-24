@@ -3,6 +3,7 @@ package com.alvino.mavappextintor.bancodados;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +15,11 @@ public class BancoDeDadosProvider extends SQLiteOpenHelper {
     private static final int VERSAO_BD = 1;
 
     public static final String TABELA_CLIENTE = "Cliente";
+    public static final String[] COLUNAS_CLIENTE = new String[]{"id", "nome_fantazia", "proprietario", "responsavel", "fone", "email", "endereco"};
     public static final String TABELA_EXTINTOR = "Extintor";
+    public static final String[] COLUNAS_EXTINTOR = new String[]{"id", "cliente", "tipo", "data_validade"};
     public static final String TABELA_VISITA = "Visita";
-
+    public static final String[] COLUNAS_VISITA = new String[]{"id", "cliente", "data_agendada", "data_criacao", "data_atendimento", "atendido", "manutenido", "obs"};
 
     public BancoDeDadosProvider(Context ctx) {
         super(ctx, NOME_BD, null, VERSAO_BD);
@@ -24,9 +27,9 @@ public class BancoDeDadosProvider extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase bd) {
-        bd.execSQL(sqlCreateTable(TABELA_CLIENTE, colummClienteMap()));
-        bd.execSQL(sqlCreateTable(TABELA_EXTINTOR,colummExtintorMap()));
-        bd.execSQL(sqlCreateTable(TABELA_VISITA, colummVisitaMap()));
+        bd.execSQL(sqlCreateTable(TABELA_CLIENTE, COLUNAS_CLIENTE, colummClienteMap(),false) );
+        bd.execSQL(sqlCreateTable(TABELA_EXTINTOR, COLUNAS_EXTINTOR, colummExtintorMap(),true) );
+        bd.execSQL(sqlCreateTable(TABELA_VISITA, COLUNAS_VISITA, colummVisitaMap(),true) );
     }
 
     @Override
@@ -39,49 +42,62 @@ public class BancoDeDadosProvider extends SQLiteOpenHelper {
     private Map<String, String> colummClienteMap() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", "integer primary key autoincrement");
-        map.put("nome_fantazia", "text");
-        map.put("proprietario", "text");
-        map.put("responsavel", " text");
-        map.put("fone", "text");
-        map.put("email", "text");
-        map.put("endereco", "text");
+        map.put("nome_fantazia", "text default \"\"");
+        map.put("proprietario", "text default \"\"");
+        map.put("responsavel", " text default \"\"");
+        map.put("fone", "text default \"\"");
+        map.put("email", "text default \"\"");
+        map.put("endereco", "text default \"\"");
         return map;
     }
 
 
-
     private Map<String, String> colummExtintorMap() {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("id","integer primary key autoincrement");
-        map.put("cliente","INTEGER");
-        map.put("tipo","text");
-        map.put("data_validade","text");
-        map.put(" ","FOREIGN KEY(cliente) REFERENCES cliente(id)");
+        map.put("id", "integer primary key autoincrement");
+        map.put("cliente", "INTEGER");
+        map.put("tipo", "text default \"\"");
+        map.put("data_validade", "text default \"\"");
+        map.put(" ", "FOREIGN KEY(cliente) REFERENCES cliente(id)");
         return map;
     }
 
     private Map<String, String> colummVisitaMap() {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("id","integer primary key autoincrement");
-        map.put("cliente","INTEGER");
-        map.put("data_agendada","text");
-        map.put("data_criacao","text");
-        map.put("data_atendimento","text");
-        map.put("manutenido","text");
-        map.put("obs","text");
-        map.put(" ","FOREIGN KEY(cliente) REFERENCES cliente(id)");
+        map.put("id", "integer primary key autoincrement");
+        map.put("cliente", "INTEGER");
+        map.put("data_agendada", "date");
+        map.put("data_criacao", "date");
+        map.put("data_atendimento", "date");
+        map.put("atendido", "text default nao");
+        map.put("manutenido", "text default \"\"");
+        map.put("obs", "text default \"\"");
+        map.put(" ", "FOREIGN KEY(cliente) REFERENCES cliente(id)");
         return map;
     }
 
 
-    private String sqlCreateTable(String name, Map<String, String> map) {
+    private String sqlCreateTable(String name, String[] colunas, Map<String, String> map,boolean forekey) {
         StringBuffer sb = new StringBuffer();
-        sb.append("CREATE TABLE IF EXISTS " + name + "( \n");
+        sb.append("CREATE TABLE IF NOT EXISTS " + name + " ( \n");
         Set<String> set = map.keySet();
-        for (String str : set) {
-            sb.append(" " + map.containsKey(str) + " " + map.containsValue(str) + ", \n");
+        int size = colunas.length;
+        int i = 1;
+        for (String str : colunas) {
+
+            if((i == size) && (!forekey) ){
+                sb.append(" " + str + " " + map.get(str) + " \n");
+            } else {
+                sb.append(" " + str + " " + map.get(str) + ", \n");
+            }
+
+            i++;
+        }
+        if (forekey) {
+            sb.append(" " + map.get(" ") + " \n");
         }
         sb.append(");");
+        Log.i("BancoDeDadosProvider", sb.toString());
         return (sb.toString());
     }
 
@@ -91,12 +107,14 @@ public class BancoDeDadosProvider extends SQLiteOpenHelper {
 
 
     public String[] getColunasCliente() {
-        Set<String> set = colummClienteMap().keySet();
-        return (String[]) set.toArray();
+        return COLUNAS_CLIENTE;
     }
 
     public String[] getColunasExtintor() {
-        Set<String> set = colummExtintorMap().keySet();
-        return (String[]) set.toArray();
+        return COLUNAS_EXTINTOR;
+    }
+
+    public String[] getColunasVisita() {
+        return COLUNAS_VISITA;
     }
 }

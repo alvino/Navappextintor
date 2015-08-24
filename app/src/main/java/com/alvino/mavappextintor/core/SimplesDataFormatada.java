@@ -12,20 +12,21 @@ import java.util.Date;
 public class SimplesDataFormatada {
 
     private static final String PATTERN = "dd/M/yyyy";
+    public static final String YYYYMDD = "yyyy-M-dd";
+    public static final String DDMYYYY = "dd/M/yyyy";
 
 
-    public static String formatar(Date data){
-        SimpleDateFormat sd = new SimpleDateFormat(PATTERN);
+    public static String formatar(Date data,String pattern){
+        SimpleDateFormat sd = new SimpleDateFormat(pattern);
         return sd.format(data);
     }
 
-    public static Date formatar(String data){
-        SimpleDateFormat sd = new SimpleDateFormat(PATTERN);
+    public static Date formatar(String data,String pattern){
+        SimpleDateFormat sd = new SimpleDateFormat(pattern);
         try {
             return sd.parse(data);
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e("SimplesDataFormatada", "String dada=" + data);
             return null;
         }
     }

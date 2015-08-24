@@ -26,7 +26,6 @@ import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
 public class ListaClientesFragment extends Fragment implements RecyclerViewOnClickListener {
@@ -34,7 +33,7 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
     private View v;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private Set<Cliente> mDataSet;
+    private List<Cliente> mDataSet;
     private ClienteAdapter mAdapter;
     private Date data;
     private Fragment fragment;
@@ -83,7 +82,9 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
 
                         Visita v = new Visita();
                         v.setCliente(cliente.getId());
-                        v.setData_agendada( SimplesDataFormatada.formatar(data) );
+                        v.setData_agendada(data);
+                        v.setData_criacao( new Date() );
+                        v.setAtendido("nao");
 
                         VisitaProvider bd = new VisitaProvider(getActivity());
                         bd.insert(v);

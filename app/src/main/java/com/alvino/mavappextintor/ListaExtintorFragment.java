@@ -1,6 +1,5 @@
 package com.alvino.mavappextintor;
 
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,33 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.alvino.mavappextintor.adapter.ClienteAdapter;
 import com.alvino.mavappextintor.adapter.ExtintorAdapter;
-import com.alvino.mavappextintor.bancodados.Cliente;
-import com.alvino.mavappextintor.bancodados.ClienteProvider;
 import com.alvino.mavappextintor.bancodados.Extintor;
 import com.alvino.mavappextintor.bancodados.ExtintorProvider;
-import com.alvino.mavappextintor.bancodados.Visita;
-import com.alvino.mavappextintor.bancodados.VisitaProvider;
-import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.dialog.AlertDialogFragment;
-import com.alvino.mavappextintor.dialog.DateDialog;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
 public class ListaExtintorFragment extends Fragment implements RecyclerViewOnClickListener {
-
-    //ListView listaViewCliente = null;
-
-
 
     private static final String ID = "id";
 
@@ -46,7 +31,7 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
     private View v;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private Set<Extintor> mDataSet;
+    private List<Extintor> mDataSet;
     private ExtintorAdapter mAdapter;
     private Button btCadastro;
 
@@ -73,14 +58,6 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
 
         if (getArguments() != null) {
             mId = getArguments().getLong(ID);
-
-            ExtintorProvider db = new ExtintorProvider(getActivity().getApplicationContext());
-            mDataSet = db.allCliente(mId);
-
-            mAdapter = new ExtintorAdapter(getActivity(), (List<Extintor>) mDataSet);
-            mAdapter.setmRecyclerViewOnClickListener(this);
-            mRecyclerView.setAdapter(mAdapter);
-
         }
     }
 
@@ -96,12 +73,7 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
         btCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new CadastroExtintorFragment().newInstance(
-                        null,
-                        mId,
-                        null,
-                        null
-                );
+                fragment = new CadastroExtintorFragment().newInstance(null,mId,null,null);
 
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment)
                         .commit();
@@ -114,7 +86,12 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        ExtintorProvider db = new ExtintorProvider(getActivity().getApplicationContext());
+        mDataSet = db.allCliente(mId);
 
+        mAdapter = new ExtintorAdapter(getActivity(), mDataSet);
+        mAdapter.setmRecyclerViewOnClickListener(this);
+        mRecyclerView.setAdapter(mAdapter);
         return v;
     }
 

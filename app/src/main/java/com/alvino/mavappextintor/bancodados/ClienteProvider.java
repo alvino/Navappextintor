@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.alvino.mavappextintor.bancodados.inteface.CRUD;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,14 +18,14 @@ import java.util.Set;
  */
 public class ClienteProvider implements CRUD<Cliente>{
 
-    private final BancoDeDadosProvider dbp;
+    private final String[] colunas;
     private SQLiteDatabase db;
     private String tabela;
 
     public ClienteProvider(Context context) {
-        dbp = new BancoDeDadosProvider(context);
-        db = dbp.getWritableDatabase();
+        db = new BancoDeDadosProvider(context).getWritableDatabase();
         tabela = BancoDeDadosProvider.TABELA_CLIENTE;
+        colunas = BancoDeDadosProvider.COLUNAS_CLIENTE;
     }
 
 
@@ -30,7 +33,7 @@ public class ClienteProvider implements CRUD<Cliente>{
     public long insert(Cliente cliente) {
 
         ContentValues valores = cliente.getContentValue();
-
+        Log.i("Cliente Provider insert",valores.toString());
         return db.insert(tabela, null, valores);
     }
 
@@ -44,14 +47,13 @@ public class ClienteProvider implements CRUD<Cliente>{
 
     @Override
     public int delete(Cliente cliente) {
-        return db.delete(DBCore.TABELA_CLIENTE, "_id = " + cliente.getId(), null);
+        return db.delete(tabela, "id = " + cliente.getId(), null);
     }
 
     @Override
-    public Set<Cliente> all() {
-        Set<Cliente> set = new HashSet<Cliente>();
-        String[] colunas = dbp.getColunasCliente();
-        Cursor cursor = db.query(tabela, colunas, null, null,null, null, "nome ASC");
+    public List<Cliente> all() {
+        List<Cliente> list = new ArrayList<Cliente>();
+        Cursor cursor = db.query(tabela, colunas, null, null,null, null, colunas[1]+" ASC");
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -67,18 +69,17 @@ public class ClienteProvider implements CRUD<Cliente>{
                         cursor.getString(5),
                         cursor.getString(6)
                         );
-                set.add(c);
+                list.add(c);
 
             } while (cursor.moveToNext());
         }
 
-        return set;
+        return list;
     }
 
     @Override
     public Cliente get(long id) {
 
-        String[] colunas = dbp.getColunasCliente();
         Cursor cursor = db.query(tabela, colunas, "id = "+id, null,null, null, null);
 
         Cliente c = null;

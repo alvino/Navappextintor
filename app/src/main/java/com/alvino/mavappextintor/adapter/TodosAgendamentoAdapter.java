@@ -12,6 +12,7 @@ import com.alvino.mavappextintor.R;
 import com.alvino.mavappextintor.bancodados.Cliente;
 import com.alvino.mavappextintor.bancodados.ClienteProvider;
 import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class TodosAgendamentoAdapter extends RecyclerView.Adapter<TodosAgendamen
 
         holder.tvNome.setText(cliente.getNome_fantazia());
         if (visita.getData_agendada() != null) {
-            holder.tvData.setText(visita.getData_agendada());
+            holder.tvData.setText(SimplesDataFormatada.formatar(visita.getData_agendada(),SimplesDataFormatada.DDMYYYY));
         } else {
             holder.tvData.setText("Visitado " + visita.getData_atendimento());
             holder.tvData.setTextSize(14);

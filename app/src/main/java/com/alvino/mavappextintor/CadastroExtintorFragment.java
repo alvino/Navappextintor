@@ -45,16 +45,18 @@ public class CadastroExtintorFragment extends Fragment {
     private Date data;
 
 
-    public static CadastroExtintorFragment newInstance(Long id, Long cliente,String tipo, String data_validade) {
+    public static CadastroExtintorFragment newInstance(Long id, Long cliente ,String tipo, String data_validade) {
         CadastroExtintorFragment fragment = new CadastroExtintorFragment();
         Bundle args = new Bundle();
-        args.putLong(ID, id);
+        if(id != null) args.putLong(ID, id);
         args.putLong(CLIENTE, cliente);
-        args.putString(TIPO, tipo);
-        args.putString(DATA_VALIDADE,data_validade);
+        if(tipo != null) args.putString(TIPO, tipo);
+        if(data_validade != null) args.putString(DATA_VALIDADE,data_validade);
         fragment.setArguments(args);
         return fragment;
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

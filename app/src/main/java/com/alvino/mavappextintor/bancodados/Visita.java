@@ -2,6 +2,8 @@ package com.alvino.mavappextintor.bancodados;
 
 import android.content.ContentValues;
 
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
+
 import java.util.Date;
 
 /**
@@ -9,20 +11,23 @@ import java.util.Date;
  */
 public class Visita {
 
+
     private Long id;
     private Long cliente;
-    private String data_agendada;
-    private String data_criacao;
-    private String data_atendimento;
+    private Date data_agendada;
+    private Date data_criacao;
+    private Date data_atendimento;
+    private String atendido;
     private String manutenido;
     private String obs;
 
-    public Visita(Long id, Long cliente, String data_agendada, String data_criacao, String data_atendimento, String manutenido, String obs) {
+    public Visita(Long id, Long cliente, Date data_agendada, Date data_criacao, Date data_atendimento, String atendido, String manutenido, String obs) {
         this.id = id;
         this.cliente = cliente;
         this.data_agendada = data_agendada;
         this.data_criacao = data_criacao;
         this.data_atendimento = data_atendimento;
+        this.atendido = atendido;
         this.manutenido = manutenido;
         this.obs = obs;
     }
@@ -47,27 +52,27 @@ public class Visita {
         this.cliente = cliente;
     }
 
-    public String getData_agendada() {
+    public Date getData_agendada() {
         return data_agendada;
     }
 
-    public void setData_agendada(String data_agendada) {
+    public void setData_agendada(Date data_agendada) {
         this.data_agendada = data_agendada;
     }
 
-    public String getData_criacao() {
+    public Date getData_criacao() {
         return data_criacao;
     }
 
-    public void setData_criacao(String data_criacao) {
+    public void setData_criacao(Date data_criacao) {
         this.data_criacao = data_criacao;
     }
 
-    public String getData_atendimento() {
+    public Date getData_atendimento() {
         return data_atendimento;
     }
 
-    public void setData_atendimento(String data_atendimento) {
+    public void setData_atendimento(Date data_atendimento) {
         this.data_atendimento = data_atendimento;
     }
 
@@ -87,16 +92,25 @@ public class Visita {
         this.obs = obs;
     }
 
+    public String getAtendido() {
+        return atendido;
+    }
+
+    public void setAtendido(String atendido) {
+        this.atendido = atendido;
+    }
+
     public ContentValues getContentValue() {
         ContentValues valores = new ContentValues();
-        if((id != 0)||(id != null))
-            valores.put("id",this.getId());
+
+        valores.put("id", this.getId());
         valores.put("cliente", this.getCliente());
-        valores.put("data_agendada", this.getData_agendada());
-        valores.put("data_criacao", this.getData_criacao());
-        valores.put("data_atendimento", this.getData_atendimento());
-        valores.put("manutenido",this.getManutenido());
-        valores.put("obs",this.getObs());
+        valores.put("data_agendada", SimplesDataFormatada.formatar(this.getData_agendada(),SimplesDataFormatada.YYYYMDD));
+        valores.put("data_criacao", SimplesDataFormatada.formatar(this.getData_criacao(), SimplesDataFormatada.YYYYMDD));
+        valores.put("data_atendimento", SimplesDataFormatada.formatar(this.getData_atendimento(), SimplesDataFormatada.YYYYMDD));
+        valores.put("atendido",this.getAtendido());
+        valores.put("manutenido", this.getManutenido());
+        valores.put("obs", this.getObs());
         return valores;
     }
 }

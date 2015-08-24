@@ -1,6 +1,7 @@
 package com.alvino.mavappextintor.bancodados;
 
 import android.content.ContentValues;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -32,11 +33,11 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,15 +90,15 @@ public class Cliente {
     }
 
     public ContentValues getContentValue() {
+        String[] colunas = BancoDeDadosProvider.COLUNAS_CLIENTE;
         ContentValues valores = new ContentValues();
-        if((id != 0)||(id != null))
-            valores.put("id",this.getId());
-        valores.put("nome_fantazia", this.getNome_fantazia());
-        valores.put("proprietario", this.getProprietario());
-        valores.put("responsavel", this.getResponsavel());
-        valores.put("fone", this.getFone());
-        valores.put("email", this.getEmail());
-        valores.put("endereco", this.getEndereco());
+        valores.put(colunas[0], this.getId());
+        valores.put(colunas[1], this.getNome_fantazia());
+        valores.put(colunas[2], this.getProprietario());
+        valores.put(colunas[3], this.getResponsavel());
+        valores.put(colunas[4], this.getFone());
+        valores.put(colunas[5], this.getEmail());
+        valores.put(colunas[6], this.getEndereco());
         return valores;
     }
 }
