@@ -41,38 +41,38 @@ public class BancoDeDadosProvider extends SQLiteOpenHelper {
 
     private Map<String, String> colummClienteMap() {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("id", "integer primary key autoincrement");
-        map.put("nome_fantazia", "text default \"\"");
-        map.put("proprietario", "text default \"\"");
-        map.put("responsavel", " text default \"\"");
-        map.put("fone", "text default \"\"");
-        map.put("email", "text default \"\"");
-        map.put("endereco", "text default \"\"");
+        map.put(COLUNAS_CLIENTE[0], "integer primary key autoincrement");
+        map.put(COLUNAS_CLIENTE[1], "text default \"\"");
+        map.put(COLUNAS_CLIENTE[2], "text default \"\"");
+        map.put(COLUNAS_CLIENTE[3], " text default \"\"");
+        map.put(COLUNAS_CLIENTE[4], "text default \"\"");
+        map.put(COLUNAS_CLIENTE[5], "text default \"\"");
+        map.put(COLUNAS_CLIENTE[6], "text default \"\"");
         return map;
     }
 
 
     private Map<String, String> colummExtintorMap() {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("id", "integer primary key autoincrement");
-        map.put("cliente", "INTEGER");
-        map.put("tipo", "text default \"\"");
-        map.put("data_validade", "text default \"\"");
-        map.put(" ", "FOREIGN KEY(cliente) REFERENCES cliente(id)");
+        map.put(COLUNAS_EXTINTOR[0], "integer primary key autoincrement");
+        map.put(COLUNAS_EXTINTOR[1], "INTEGER");
+        map.put(COLUNAS_EXTINTOR[2], "text default \"\"");
+        map.put(COLUNAS_EXTINTOR[3], "date");
+        map.put(" ", "FOREIGN KEY(cliente) REFERENCES "+TABELA_CLIENTE+"(id)");
         return map;
     }
 
     private Map<String, String> colummVisitaMap() {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("id", "integer primary key autoincrement");
-        map.put("cliente", "INTEGER");
-        map.put("data_agendada", "date");
-        map.put("data_criacao", "date");
-        map.put("data_atendimento", "date");
-        map.put("atendido", "text default nao");
-        map.put("manutenido", "text default \"\"");
-        map.put("obs", "text default \"\"");
-        map.put(" ", "FOREIGN KEY(cliente) REFERENCES cliente(id)");
+        map.put(COLUNAS_VISITA[0], "integer primary key autoincrement");
+        map.put(COLUNAS_VISITA[1], "INTEGER");
+        map.put(COLUNAS_VISITA[2], "date");
+        map.put(COLUNAS_VISITA[3], "date");
+        map.put(COLUNAS_VISITA[4], "date");
+        map.put(COLUNAS_VISITA[5], "text default nao");
+        map.put(COLUNAS_VISITA[6], "text default \"\"");
+        map.put(COLUNAS_VISITA[7], "text default \"\"");
+        map.put(" ", "FOREIGN KEY(cliente) REFERENCES "+TABELA_CLIENTE+"(id)");
         return map;
     }
 

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.alvino.mavappextintor.bancodados.Extintor;
 import com.alvino.mavappextintor.bancodados.ExtintorProvider;
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.dialog.DateDialog;
 
 import java.util.Date;
@@ -27,11 +28,10 @@ public class CadastroExtintorFragment extends Fragment {
     private static final String TIPO = "tipo";
     private static final String DATA_VALIDADE = "data_validade";
 
-    private Long mId;
-    private Long mCliente;
-    private String mTipo;
-    private String mData_validade;
-
+    private Long mId = null;
+    private Long mCliente = null;
+    private String mTipo = null;
+    private String mData_validade = null;
 
 
     private EditText txtData_validade;
@@ -45,29 +45,32 @@ public class CadastroExtintorFragment extends Fragment {
     private Date data;
 
 
-    public static CadastroExtintorFragment newInstance(Long id, Long cliente ,String tipo, String data_validade) {
+    public static CadastroExtintorFragment newInstance(Long id, Long cliente, String tipo, String data_validade) {
         CadastroExtintorFragment fragment = new CadastroExtintorFragment();
         Bundle args = new Bundle();
-        if(id != null) args.putLong(ID, id);
+        if (id != null) args.putLong(ID, id);
         args.putLong(CLIENTE, cliente);
-        if(tipo != null) args.putString(TIPO, tipo);
-        if(data_validade != null) args.putString(DATA_VALIDADE,data_validade);
+        if (tipo != null) args.putString(TIPO, tipo);
+        if (data_validade != null) args.putString(DATA_VALIDADE, data_validade);
         fragment.setArguments(args);
         return fragment;
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mId = getArguments().getLong(ID);
+            if (getArguments().getLong(ID) == 0) {
+                mId = null;
+            } else {
+                mId = getArguments().getLong(ID);
+                flagAtualizar = true;
+            }
             mCliente = getArguments().getLong(CLIENTE);
             mTipo = getArguments().getString(TIPO);
             mData_validade = getArguments().getString(DATA_VALIDADE);
-            flagAtualizar = true;
+
         }
     }
 
@@ -147,12 +150,11 @@ public class CadastroExtintorFragment extends Fragment {
             String string1 = txtTipo.getText().toString().toUpperCase();
             String string2 = txtData_validade.getText().toString().toUpperCase();
 
-
             Extintor e = new Extintor();
 
             e.setCliente(mCliente);
             e.setTipo(string1);
-            e.setData_validade(string2);
+            e.setData_validade(SimplesDataFormatada.formatar(string2, SimplesDataFormatada.DDMYYYY));
 
             String text = "";
 

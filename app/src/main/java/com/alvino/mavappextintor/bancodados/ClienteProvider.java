@@ -22,6 +22,8 @@ public class ClienteProvider implements CRUD<Cliente>{
     private SQLiteDatabase db;
     private String tabela;
 
+    private static String tag = "ClienteProvider";
+
     public ClienteProvider(Context context) {
         db = new BancoDeDadosProvider(context).getWritableDatabase();
         tabela = BancoDeDadosProvider.TABELA_CLIENTE;
@@ -33,7 +35,7 @@ public class ClienteProvider implements CRUD<Cliente>{
     public long insert(Cliente cliente) {
 
         ContentValues valores = cliente.getContentValue();
-        Log.i("Cliente Provider insert",valores.toString());
+        Log.i(tag+"insert",valores.toString());
         return db.insert(tabela, null, valores);
     }
 
@@ -41,7 +43,7 @@ public class ClienteProvider implements CRUD<Cliente>{
     public int upgrade(Cliente cliente) {
 
         ContentValues valores = cliente.getContentValue();
-
+        Log.i(tag+"upgrade",valores.toString());
         return db.update(tabela,valores,"id = "+cliente.getId(), null);
     }
 

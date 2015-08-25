@@ -101,16 +101,17 @@ public class Visita {
     }
 
     public ContentValues getContentValue() {
+        String[] colunas = BancoDeDadosProvider.COLUNAS_VISITA;
         ContentValues valores = new ContentValues();
 
-        valores.put("id", this.getId());
-        valores.put("cliente", this.getCliente());
-        valores.put("data_agendada", SimplesDataFormatada.formatar(this.getData_agendada(),SimplesDataFormatada.YYYYMDD));
-        valores.put("data_criacao", SimplesDataFormatada.formatar(this.getData_criacao(), SimplesDataFormatada.YYYYMDD));
-        valores.put("data_atendimento", SimplesDataFormatada.formatar(this.getData_atendimento(), SimplesDataFormatada.YYYYMDD));
-        valores.put("atendido",this.getAtendido());
-        valores.put("manutenido", this.getManutenido());
-        valores.put("obs", this.getObs());
+        valores.put(colunas[0], this.getId());
+        valores.put(colunas[1], this.getCliente());
+        valores.put(colunas[2], SimplesDataFormatada.formatar(this.getData_agendada(),SimplesDataFormatada.YYYYMDD));
+        valores.put(colunas[3], SimplesDataFormatada.formatar(this.getData_criacao(), SimplesDataFormatada.YYYYMDD));
+        valores.put(colunas[4], SimplesDataFormatada.formatar(this.getData_atendimento(), SimplesDataFormatada.YYYYMDD));
+        valores.put(colunas[5], this.getAtendido());
+        valores.put(colunas[6], this.getManutenido());
+        valores.put(colunas[7], this.getObs());
         return valores;
     }
 }

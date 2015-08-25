@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.alvino.mavappextintor.R;
 import com.alvino.mavappextintor.bancodados.Cliente;
 import com.alvino.mavappextintor.bancodados.Extintor;
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class ExtintorAdapter extends RecyclerView.Adapter<ExtintorAdapter.ViewHo
         Extintor e = mDataSet.get(position);
 
         holder.tvTipo.setText(e.getTipo());
-        holder.tvData.setText(e.getData_validade());
+        holder.tvData.setText(SimplesDataFormatada.formatar(e.getData_validade(),SimplesDataFormatada.MYY));
 
     }
 

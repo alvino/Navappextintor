@@ -11,17 +11,23 @@ import java.util.Date;
  */
 public class SimplesDataFormatada {
 
-    private static final String PATTERN = "dd/M/yyyy";
     public static final String YYYYMDD = "yyyy-M-dd";
     public static final String DDMYYYY = "dd/M/yyyy";
+    public static final String MYY     = "M/yy";
 
 
     public static String formatar(Date data,String pattern){
+        if(data == null){
+            return "";
+        }
         SimpleDateFormat sd = new SimpleDateFormat(pattern);
         return sd.format(data);
     }
 
     public static Date formatar(String data,String pattern){
+        if((data == null) || (data.equals(""))){
+            return null;
+        }
         SimpleDateFormat sd = new SimpleDateFormat(pattern);
         try {
             return sd.parse(data);

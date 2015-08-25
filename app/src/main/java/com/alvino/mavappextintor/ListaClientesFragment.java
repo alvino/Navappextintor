@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
     private ClienteAdapter mAdapter;
     private Date data;
     private Fragment fragment;
+    private Button btCadastro;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +46,7 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
 
         getActivity().setTitle(getResources().getString(R.string.title_actionbar_lista_cliente));
 
-        v = inflater.inflate(R.layout.fragment_recycler_view_lista, container, false);
+        v = inflater.inflate(R.layout.fragment_recycler_view_lista_com_button, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.rv_lista);
 
         mRecyclerView.setHasFixedSize(true);
@@ -59,6 +61,18 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
         mAdapter = new ClienteAdapter(getActivity(), (List<Cliente>) mDataSet);
         mAdapter.setmRecyclerViewOnClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+
+        btCadastro = (Button) v.findViewById(R.id.bt_Button);
+        btCadastro.setText(getResources().getText(R.string.txt_cadastro_cliente));
+        btCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new CadastroClienteFragment();
+
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment)
+                        .commit();
+            }
+        });
         return v;
     }
 
@@ -161,7 +175,6 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                 fragment = new ListaExtintorFragment().newInstance(c.getId());
 
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment)
-                        .addToBackStack("ListaCliente")
                         .commit();
                 break;
 

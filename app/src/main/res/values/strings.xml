@@ -25,7 +25,6 @@
     <array name="nav_drawer_menu">
         <item>@string/title_actionbar_lista_agendamento</item>
         <item>@string/title_actionbar_lista_cliente</item>
-        <item>@string/title_actionbar_cadastro_de_usuario</item>
         <item>@string/title_actionbar_todos_os_agendamento</item>
         <item>@string/title_actionbar_converte_dados_para_csv</item>
         <item>@string/title_actionbar_sobre</item>
@@ -49,6 +48,7 @@
     <string name="txt_obs">Observação</string>
 
     <string name="txt_cadastro_extintor">Cadastra Extintor</string>
+    <string name="txt_cadastro_cliente">Cadastra Cliente</string>
 
     <string name="txt_cria_csv">Criar CSV</string>
 

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.alvino.mavappextintor.bancodados.inteface.CRUD;
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ public class ExtintorProvider implements CRUD<Extintor> {
     private SQLiteDatabase db;
     private String tabela;
 
+    private static String tag = "ExtintorProvider";
+
     public ExtintorProvider(Context context) {
         db = new BancoDeDadosProvider(context).getWritableDatabase();
         tabela = BancoDeDadosProvider.TABELA_EXTINTOR;
@@ -30,13 +33,14 @@ public class ExtintorProvider implements CRUD<Extintor> {
     @Override
     public long insert(Extintor extintor) {
         ContentValues values = extintor.getContentValue();
-        Log.i("Extintor Provider insert", values.toString());
+        Log.i(tag+"insert", values.toString());
         return db.insert(tabela,null,values);
     }
 
     @Override
     public int upgrade(Extintor extintor) {
         ContentValues values = extintor.getContentValue();
+        Log.i(tag+"upgrade", values.toString());
         return db.update(tabela, values, "id = " + extintor.getId(), null);
     }
 
@@ -50,6 +54,7 @@ public class ExtintorProvider implements CRUD<Extintor> {
         List<Extintor> List = new ArrayList<Extintor>();
         Cursor cursor = db.query(tabela, colunas, null, null,null, null, null);
 
+        Log.i(tag + "all", "quantidade: "+cursor.getCount());
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
 
@@ -59,10 +64,10 @@ public class ExtintorProvider implements CRUD<Extintor> {
                         cursor.getLong(0),
                         cursor.getLong(1),
                         cursor.getString(2),
-                        cursor.getString(3)
-                );
+                        SimplesDataFormatada.formatar(cursor.getString(3), SimplesDataFormatada.YYYYMDD)
+                        );
                 List.add(e);
-
+                Log.i(tag + "all", e.getContentValue().toString());
             } while (cursor.moveToNext());
         }
 
@@ -81,16 +86,16 @@ public class ExtintorProvider implements CRUD<Extintor> {
                     cursor.getLong(0),
                     cursor.getLong(1),
                     cursor.getString(2),
-                    cursor.getString(3)
+                    SimplesDataFormatada.formatar(cursor.getString(3), SimplesDataFormatada.YYYYMDD)
             );
         }
 
         return e;
     }
 
-    public List<Extintor> allCliente(Long mId) {
+    public List<Extintor> allCliente(Long mCliente) {
         List<Extintor> List = new ArrayList<Extintor>();
-        Cursor cursor = db.query(tabela, colunas, "cliente = "+mId,null,null, null, null);
+        Cursor cursor = db.query(tabela, colunas, colunas[1]+" = ?",new String[]{String.valueOf(mCliente)},null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -101,10 +106,10 @@ public class ExtintorProvider implements CRUD<Extintor> {
                         cursor.getLong(0),
                         cursor.getLong(1),
                         cursor.getString(2),
-                        cursor.getString(3)
+                        SimplesDataFormatada.formatar(cursor.getString(3), SimplesDataFormatada.YYYYMDD)
                 );
                 List.add(e);
-
+                Log.i(tag + "allCliente", e.getContentValue().toString());
             } while (cursor.moveToNext());
         }
 

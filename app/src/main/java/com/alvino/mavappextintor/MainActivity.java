@@ -58,15 +58,12 @@ public class MainActivity extends ActionBarActivity
                 fragment = new ListaClientesFragment();
                 break;
             case 2:
-                fragment = new CadastroClienteFragment();
-                break;
-            case 3:
                 fragment = new ListaTodosAgendadosFragment();
                 break;
-            case 4:
+            case 3:
                 fragment = new ConverteBancoEmCSVFragment();
                 break;
-            case 5:
+            case 4:
                 fragment = new SobreFragment();
                 break;
             /*

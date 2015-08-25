@@ -2,6 +2,10 @@ package com.alvino.mavappextintor.bancodados;
 
 import android.content.ContentValues;
 
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
+
+import java.util.Date;
+
 /**
  * Created by alvino on 21/08/15.
  */
@@ -10,12 +14,12 @@ public class Extintor {
     private Long id;
     private Long cliente;
     private String tipo;
-    private String data_validade;
+    private Date data_validade;
 
     public Extintor() {
     }
 
-    public Extintor(Long id, Long cliente, String tipo, String data_validade) {
+    public Extintor(Long id, Long cliente, String tipo, Date data_validade) {
         this.id = id;
         this.cliente = cliente;
         this.tipo = tipo;
@@ -23,11 +27,11 @@ public class Extintor {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,21 +51,22 @@ public class Extintor {
         this.tipo = tipo;
     }
 
-    public String getData_validade() {
+    public Date getData_validade() {
         return data_validade;
     }
 
-    public void setData_validade(String data_validade) {
+    public void setData_validade(Date data_validade) {
         this.data_validade = data_validade;
     }
 
 
     public ContentValues getContentValue() {
+        String[] colunas = BancoDeDadosProvider.COLUNAS_EXTINTOR;
         ContentValues valores = new ContentValues();
-        valores.put("id", this.getId());
-        valores.put("cliente", this.getCliente());
-        valores.put("tipo", this.getTipo());
-        valores.put("data_validade", this.getData_validade());
+        valores.put(colunas[0], this.getId());
+        valores.put(colunas[1], this.getCliente());
+        valores.put(colunas[2], this.getTipo());
+        valores.put(colunas[3], SimplesDataFormatada.formatar(this.getData_validade(), SimplesDataFormatada.YYYYMDD));
         return valores;
     }
 }

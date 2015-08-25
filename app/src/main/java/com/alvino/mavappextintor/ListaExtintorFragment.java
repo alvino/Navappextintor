@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.alvino.mavappextintor.adapter.ExtintorAdapter;
 import com.alvino.mavappextintor.bancodados.Extintor;
 import com.alvino.mavappextintor.bancodados.ExtintorProvider;
+import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.dialog.AlertDialogFragment;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
@@ -24,9 +25,9 @@ import java.util.List;
 
 public class ListaExtintorFragment extends Fragment implements RecyclerViewOnClickListener {
 
-    private static final String ID = "id";
+    private static final String CLIENTE = "cliente";
 
-    private Long mId;
+    private Long mCliente;
 
     private View v;
     private RecyclerView mRecyclerView;
@@ -43,10 +44,10 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
     private Fragment fragment;
 
 
-    public static ListaExtintorFragment newInstance(Long id) {
+    public static ListaExtintorFragment newInstance(Long cliente) {
         ListaExtintorFragment fragment = new ListaExtintorFragment();
         Bundle args = new Bundle();
-        args.putLong(ID, id);
+        args.putLong(CLIENTE, cliente);
 
         fragment.setArguments(args);
         return fragment;
@@ -57,8 +58,9 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mId = getArguments().getLong(ID);
+            mCliente = getArguments().getLong(CLIENTE);
         }
+
     }
 
     @Override
@@ -67,19 +69,8 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
 
         getActivity().setTitle(getResources().getString(R.string.title_actionbar_lista_extintor));
 
-        v = inflater.inflate(R.layout.fragment_recycler_view_lista_extintor, container, false);
+        v = inflater.inflate(R.layout.fragment_recycler_view_lista_com_button, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.rv_lista);
-        btCadastro = (Button) v.findViewById(R.id.bt_cadastro_extintor);
-        btCadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment = new CadastroExtintorFragment().newInstance(null,mId,null,null);
-
-                getFragmentManager().beginTransaction().replace(R.id.container, fragment)
-                        .commit();
-            }
-        });
-
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -87,11 +78,24 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         ExtintorProvider db = new ExtintorProvider(getActivity().getApplicationContext());
-        mDataSet = db.allCliente(mId);
+        mDataSet = db.allCliente(mCliente);
 
         mAdapter = new ExtintorAdapter(getActivity(), mDataSet);
         mAdapter.setmRecyclerViewOnClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+
+        btCadastro = (Button) v.findViewById(R.id.bt_Button);
+        btCadastro.setText(getResources().getText(R.string.txt_cadastro_extintor));
+        btCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new CadastroExtintorFragment().newInstance(null, mCliente, null, null);
+
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment)
+                        .commit();
+            }
+        });
+
         return v;
     }
 
@@ -101,20 +105,20 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
         final Extintor e = mAdapter.getItemExtintor(position);
 
         switch (view.getId()) {
-           case R.id.ib_editar_lista_cliente:
+           case R.id.ib_editar_lista_extintor:
 
                 Fragment fragment = new CadastroExtintorFragment().newInstance(
                         e.getId(),
                         e.getCliente(),
                         e.getTipo(),
-                        e.getData_validade()
-                );
+                        SimplesDataFormatada.formatar(e.getData_validade(), SimplesDataFormatada.DDMYYYY )
+                        );
 
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment)
                         .commit();
 
                 break;
-            case R.id.ib_remover_lista_cliente:
+            case R.id.ib_remover_lista_extintor:
 
 
                 DialogInterface.OnClickListener ok = new DialogInterface.OnClickListener() {

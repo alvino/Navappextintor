@@ -67,35 +67,10 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
 
 
 
-        final VisitaDialogFragmente dialogFragmente = VisitaDialogFragmente.newInstance(mAdapter.getItemVisita(position).getId());
-        dialogFragmente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.cancelar_dialog_visita:
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        Fragment fragment = new ListaAgendamentoFragment();
-                        fragmentManager.beginTransaction()
-                                .replace(R.id.container, fragment)
-                                .commit();
-                        break;
-
-                    case R.id.salvar_dialog_visita:
-
-                        Visita visita = mAdapter.getItemVisita(position);
-                        visita.setData_atendimento(new Date());
-                        visita.setAtendido("sim");
-                        visita.setManutenido(dialogFragmente.getManutenido());
-                        visita.setObs(dialogFragmente.getObs());
-
-                        new VisitaProvider(getActivity()).upgrade(visita);
-
-                        Toast.makeText(getActivity(),"Visita salva na data: "+ visita.getData_atendimento(),Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        });
-        dialogFragmente.show(getFragmentManager(),"ListaAgendamento");
+        final CadastroVisitaFragment cadastroFragmente = CadastroVisitaFragment.newInstance(mAdapter.getItemVisita(position).getId());
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, cadastroFragmente)
+                .commit();
 
         /*
         DialogInterface.OnClickListener ok = new DialogInterface.OnClickListener() {
