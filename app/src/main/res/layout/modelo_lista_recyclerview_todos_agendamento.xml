@@ -7,7 +7,7 @@
     android:paddingTop="20dp">
 
     <TextView
-        android:id="@+id/tv_nome_agendamento"
+        android:id="@+id/tv_nome_todo_agendamento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -17,11 +17,11 @@
         android:textSize="22sp" />
 
     <TextView
-        android:id="@+id/tv_data_agendamento"
+        android:id="@+id/tv_data_todo_agendamento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_nome_agendamento"
-        android:layout_below="@+id/tv_nome_agendamento"
+        android:layout_alignLeft="@+id/tv_nome_todo_agendamento"
+        android:layout_below="@+id/tv_nome_todo_agendamento"
         android:paddingRight="16dp"
         android:textColor="@color/colorPrimarytext"
         android:textSize="16sp" />
@@ -30,8 +30,8 @@
         android:id="@+id/vw_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignLeft="@+id/tv_nome_agendamento"
-        android:layout_below="@+id/tv_data_agendamento"
+        android:layout_alignLeft="@+id/tv_nome_todo_agendamento"
+        android:layout_below="@+id/tv_data_todo_agendamento"
         android:layout_marginTop="10dp"
         android:background="@color/vermelho" />
 
