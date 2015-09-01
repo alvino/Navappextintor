@@ -1,6 +1,16 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="material_drawer_primary_text">@color/colorPrimarytext</item>
+        <item name="material_drawer_selected_text">@color/colorPrimary</item>
+    </style>
+
+    <!--
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyStyleActionBar</item>
 
@@ -12,13 +22,12 @@
 
         <item name="background">@color/vermelho</item>
     </style>
-
+    -->
     <style name="MyNavigationDrawer_footer" parent="TextAppearance.AppCompat.Medium">
         <item name="android:background">@android:color/background_light</item>
 
         <item name="background">@android:color/background_light</item>
     </style>
-
 
 
 </resources>

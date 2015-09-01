@@ -1,0 +1,53 @@
+
+[Cliente]
+nome fantazia:
+proprietario:
+Responsavel:
+Fone:
+Endereço:
+Email:
+
+[Extintores]
+cliente:
+tipo:
+Data de validade:(m/a)
+
+
+[Visita]
+cliente:
+data_agendada:(data do agendamento)
+data_criaçao:(automatico na hora do cadastro)
+data_atendimento:(no dia que ouver o atendimento)
+Manutenido por:
+obs:
+
+#
+
+create table Cliente (
+    id integer primary key autoincrement,
+    nome_fantazia text,
+    proprietario text,
+    responsavel text,
+    fone text,
+    email text,
+    endereco text
+)
+
+create table Extintor (
+    id integer primary key autoincrement,
+    cliente INTEGER,
+    tipo text,
+    data_validade text,
+    FOREIGN KEY(cliente) REFERENCES cliente(id)
+)
+
+create table Visita (
+    id integer primary key autoincrement,
+    cliente INTEGER,
+    data_agendada text,
+    data_criacao text,
+    data_atendimento text,
+    manutenido text,
+    obs text,
+    FOREIGN KEY(cliente) REFERENCES cliente(id)
+)

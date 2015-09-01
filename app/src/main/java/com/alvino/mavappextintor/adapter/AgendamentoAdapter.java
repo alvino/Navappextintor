@@ -15,7 +15,6 @@ import com.alvino.mavappextintor.bancodados.Visita;
 import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,12 +44,6 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Visita v = mDataSet.get(i);
 
-
-        Date hoje = new Date();
-        Date agendada = v.getData_agendada();
-        long milissegundos = agendada.getTime() - hoje.getTime();
-        long dias = milissegundos / (24 * 60 * 60 * 1000);
-
         ClienteProvider db = new ClienteProvider(context);
 
         Cliente cliente = db.get(mDataSet.get(i).getCliente());
@@ -58,12 +51,9 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
         viewHolder.tvNome.setText(cliente.getNome_fantazia());
         viewHolder.tvData.setText(SimplesDataFormatada.formatar(v.getData_agendada(), SimplesDataFormatada.DDMYYYY));
 
-        if ((dias > -1.0) && (dias < 15.0)) {
+        if (v.isPaint()) {
             viewHolder.tvNome.setTextColor(Color.rgb(235, 27, 36));
             viewHolder.tvData.setTextColor(Color.rgb(235, 27, 36));
-        } else if(dias < 0.0) {
-            viewHolder.tvNome.setTextColor(Color.rgb(255, 138, 128));
-            viewHolder.tvData.setTextColor(Color.rgb(255, 138, 128));
         }
     }
     

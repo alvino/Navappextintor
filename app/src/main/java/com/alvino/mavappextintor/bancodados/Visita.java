@@ -114,4 +114,21 @@ public class Visita {
         valores.put(colunas[7], this.getObs());
         return valores;
     }
+
+    public Long diasComRelacaoAHoje() {
+        Date hoje = new Date();
+        Date agendada = this.getData_agendada();
+        long milissegundos = agendada.getTime() - hoje.getTime();
+        Long dias = new Long( milissegundos / (24 * 60 * 60 * 1000) );
+        return dias;
+    }
+
+    public boolean isPaint() {
+        Long dias = diasComRelacaoAHoje();
+        if ((dias != null) && (dias > -1.0) && (dias < 15.0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

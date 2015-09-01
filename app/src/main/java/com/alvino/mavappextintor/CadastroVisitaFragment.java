@@ -111,7 +111,6 @@ public class CadastroVisitaFragment extends Fragment {
             etObs.setText(v.getObs());
         }
 
-
     }
 
 }

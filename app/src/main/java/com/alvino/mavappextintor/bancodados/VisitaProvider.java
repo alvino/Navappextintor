@@ -46,7 +46,7 @@ public class VisitaProvider implements CRUD<Visita> {
     @Override
     public List<Visita> all() {
         List<Visita> list = new ArrayList<Visita>();
-        Cursor cursor = db.query(tabela, colunas, null, null, null, null, colunas[1] + " ASC");
+        Cursor cursor = db.query(tabela, colunas, null, null, null, null, colunas[2] + " ASC");
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();

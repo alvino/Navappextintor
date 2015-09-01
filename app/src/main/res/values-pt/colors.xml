@@ -5,9 +5,13 @@
     <color name="grey">#ddd</color>
     <color name="black">#000</color>
 
-    <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryDark">#00796B</color>
-    <color name="colorAccent">#795548</color>
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
+    <color name="colorAccent">#FF5252</color>
     <color name="colorPrimarytext">#212121</color>
+
+
+    <color name="colorFAB">#E53935</color>
+    <color name="colorFABPressed">#C62828</color>
 
 </resources>
