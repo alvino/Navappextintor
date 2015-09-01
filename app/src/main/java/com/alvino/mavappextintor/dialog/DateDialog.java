@@ -1,6 +1,7 @@
 package com.alvino.mavappextintor.dialog;
 
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import java.util.Calendar;
 /**
  * Created by alvino on 30/07/15.
  */
+@SuppressLint("ValidFragment")
 public class DateDialog extends DialogFragment {
 
     DatePickerDialog.OnDateSetListener dateSetListener;

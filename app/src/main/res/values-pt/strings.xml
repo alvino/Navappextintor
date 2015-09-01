@@ -1,9 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Expresso</string>
-    <string name="action_example">Exemplo ação</string>
-    <string name="action_settings">Configuração</string>
-    <string name="navigation_drawer_close">Fecha navigator</string>
-    <string name="navigation_drawer_open">Abrir navigator</string>
 
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_actionbar_lista_agendamento" >Lista de Visitas</string>
+    <string name="title_actionbar_lista_cliente" >Lista de Clientes</string>
+    <string name="title_actionbar_cadastro_de_usuario" >Cadastro de Cliente</string>
+    <string name="title_actionbar_todos_os_agendamento" >Todas as Visitas Agendadas</string>
+    <string name="title_actionbar_converte_dados_para_csv" >Converte Dados P/ CSV</string>
+    <string name="title_actionbar_sobre" >Desenvolvido</string>
+    <string name="title_actionbar_cadastro_de_extintor" >Cadastro de Extintor</string>
+    <string name="title_actionbar_lista_extintor" >Lista de Extintores</string>
+
+
+    <array name="nav_drawer_menu">
+        <item>@string/title_actionbar_lista_agendamento</item>
+        <item>@string/title_actionbar_lista_cliente</item>
+        <item>@string/title_actionbar_todos_os_agendamento</item>
+        <item>@string/title_actionbar_converte_dados_para_csv</item>
+        <item>@string/title_actionbar_sobre</item>
+    </array>
+
+    <string name="developer_name">Alvino de Oliveira Figueiredo</string>
+    <string name="developer_url_google">https://plus.google.com/u/0/+AlvinoFigueiredo/posts</string>
+    <string name="developer_url_facebook">https://www.facebook.com/alvino.figueiredo</string>
+    <string name="developer_url_whatapp">(62) 8180-1912</string>
+
+    <string name="txt_nome_fantasia">Nome Fantasia</string>
+    <string name="txt_proprietario">Proprietario</string>
+    <string name="txt_responsavel">Responsavel</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_telefone">Telefone</string>
+    <string name="txt_endereco">Endereço</string>
+
+    <string name="txt_tipo">Tipo</string>
+    <string name="txt_data_validade">Validade</string>
+    <string name="txt_manutenido">Manutenido</string>
+    <string name="txt_obs">Observação</string>
+
+    <string name="txt_cadastro_extintor">Cadastra Extintor</string>
+    <string name="txt_cadastro_cliente">Cadastra Cliente</string>
+
+    <string name="txt_cria_csv">Criar CSV</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

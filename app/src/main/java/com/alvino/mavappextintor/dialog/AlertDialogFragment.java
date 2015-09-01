@@ -1,5 +1,6 @@
 package com.alvino.mavappextintor.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class AlertDialogFragment extends DialogFragment {
 
     }
 
+    @SuppressLint("ValidFragment")
     public AlertDialogFragment(String title, String messagem, DialogInterface.OnClickListener clickOk, DialogInterface.OnClickListener clickCancela) {
         mTitle = title;
         mMessagem = messagem;
