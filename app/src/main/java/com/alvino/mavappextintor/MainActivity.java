@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         mToolbar = (Toolbar) findViewById(R.id.tb_main);
+        mToolbar.setLogo(R.drawable.ic_extintor_white_24dp);
         setSupportActionBar(mToolbar);
 
 
@@ -121,54 +122,55 @@ public class MainActivity extends ActionBarActivity {
         navigationDrawer.setSelection(0);
 
     }
-   /*
-    private int getCorretcDrawerIcon(int position, boolean isSelecetd){
-        switch(position){
-            case 0:
-                return( isSelecetd ? R.drawable.car_selected_1 : R.drawable.car_1 );
-            case 1:
-                return( isSelecetd ? R.drawable.car_selected_2 : R.drawable.car_2 );
-            case 2:
-                return( isSelecetd ? R.drawable.car_selected_3 : R.drawable.car_3 );
-            case 3:
-                return( isSelecetd ? R.drawable.car_selected_4 : R.drawable.car_4 );
-        }
-        return(0);
-    }
 
     /*
-        @Override
-        public void onNavigationDrawerItemSelected(int position) {
-            // update the main content by replacing fragments
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = null;
-            switch (position) {
-                case 0:
-                    fragment = new ListaAgendamentoFragment();
-                    break;
-                case 1:
-                    fragment = new ListaClientesFragment();
-                    break;
-                case 2:
-                    fragment = new ListaTodosAgendadosFragment();
-                    break;
-                case 3:
-                    fragment = new ConverteBancoEmCSVFragment();
-                    break;
-                case 4:
-                    fragment = new SobreFragment();
-                    break;
+     private int getCorretcDrawerIcon(int position, boolean isSelecetd){
+         switch(position){
+             case 0:
+                 return( isSelecetd ? R.drawable.car_selected_1 : R.drawable.car_1 );
+             case 1:
+                 return( isSelecetd ? R.drawable.car_selected_2 : R.drawable.car_2 );
+             case 2:
+                 return( isSelecetd ? R.drawable.car_selected_3 : R.drawable.car_3 );
+             case 3:
+                 return( isSelecetd ? R.drawable.car_selected_4 : R.drawable.car_4 );
+         }
+         return(0);
+     }
 
-            }
-            if(fragment != null) {
-                onSectionAttached(position);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, fragment)
-                        .commit();
-            }
-            pressBackPressed = 0;
-        }
-    */
+     /*
+         @Override
+         public void onNavigationDrawerItemSelected(int position) {
+             // update the main content by replacing fragments
+             FragmentManager fragmentManager = getSupportFragmentManager();
+             Fragment fragment = null;
+             switch (position) {
+                 case 0:
+                     fragment = new ListaAgendamentoFragment();
+                     break;
+                 case 1:
+                     fragment = new ListaClientesFragment();
+                     break;
+                 case 2:
+                     fragment = new ListaTodosAgendadosFragment();
+                     break;
+                 case 3:
+                     fragment = new ConverteBancoEmCSVFragment();
+                     break;
+                 case 4:
+                     fragment = new SobreFragment();
+                     break;
+
+             }
+             if(fragment != null) {
+                 onSectionAttached(position);
+                 fragmentManager.beginTransaction()
+                         .replace(R.id.container, fragment)
+                         .commit();
+             }
+             pressBackPressed = 0;
+         }
+     */
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -210,11 +212,15 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        if (pressBackPressed == 1) {
-            super.onBackPressed();
+        if (navigationDrawer.isDrawerOpen()) {
+            navigationDrawer.closeDrawer();
         } else {
-            Toast.makeText(getApplicationContext(), "Pressione mais uma vez para fechar.", Toast.LENGTH_SHORT).show();
+            if (pressBackPressed == 1) {
+                super.onBackPressed();
+            } else {
+                Toast.makeText(getApplicationContext(), "Pressione mais uma vez para fechar.", Toast.LENGTH_SHORT).show();
+            }
+            pressBackPressed++;
         }
-        pressBackPressed++;
     }
 }

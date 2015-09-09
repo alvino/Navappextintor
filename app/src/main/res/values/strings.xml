@@ -18,6 +18,8 @@
     <string name="title_actionbar_cadastro_de_extintor">Cadastro de Extintor</string>
     <string name="title_actionbar_lista_extintor">Lista de Extintores</string>
 
+    <string name="title_dialog_opcao_cliente">Opcões</string>
+
 
     <array name="nav_drawer_menu">
         <item>@string/title_actionbar_lista_agendamento</item>

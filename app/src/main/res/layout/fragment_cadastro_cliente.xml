@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1.00"
+        android:textColor="@color/primary_text"
         android:ems="10"
         android:hint="@string/txt_nome_fantasia"
         android:inputType="textPersonName">
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:layout_weight="1.00"
+        android:textColor="@color/primary_text"
         android:ems="10"
         android:hint="@string/txt_proprietario"
         android:id="@+id/txtProprietario_cadastro_cliente" />
@@ -31,6 +33,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:layout_weight="1.00"
+        android:textColor="@color/primary_text"
         android:ems="10"
         android:hint="@string/txt_responsavel"
         android:id="@+id/txtResponsavel_cadastro_cliente" />
@@ -40,6 +43,7 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:layout_weight="1.00"
+        android:textColor="@color/primary_text"
         android:ems="10"
         android:hint="@string/txt_telefone"
         android:id="@+id/txtPhone_cadastro_cliente"/>
@@ -49,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1.00"
+        android:textColor="@color/primary_text"
         android:ems="10"
         android:hint="@string/txt_email"
         android:inputType="textEmailAddress" />
@@ -58,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2.0"
+        android:textColor="@color/primary_text"
         android:ems="10"
         android:hint="@string/txt_endereco"
         android:inputType="textPostalAddress" />
@@ -71,12 +77,18 @@
             android:id="@+id/cancelar_cadastro_cliente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:background="@color/background_button"
             android:text="Cancelar" />
 
         <Button
             android:id="@+id/salvar_cadastro_cliente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/background_button"
+            android:padding="10dp"
+            android:layout_margin="10dp"
             android:width="150dp"
             android:text="Salvar" />
     </LinearLayout>

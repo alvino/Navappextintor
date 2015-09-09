@@ -1,27 +1,21 @@
 package com.alvino.mavappextintor;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alvino.mavappextintor.adapter.AgendamentoAdapter;
 import com.alvino.mavappextintor.bancodados.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
-import com.alvino.mavappextintor.core.SimplesDataFormatada;
-import com.alvino.mavappextintor.dialog.AlertDialogFragment;
-import com.alvino.mavappextintor.dialog.VisitaDialogFragmente;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOnClickListener {
@@ -51,7 +45,9 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
         VisitaProvider bd = new VisitaProvider(getActivity().getApplicationContext());
         mDataSet = bd.allNotAtendido();
 
-        mAdapter = new AgendamentoAdapter(getActivity(),mDataSet);
+        Collections.sort(mDataSet);
+
+        mAdapter = new AgendamentoAdapter(getActivity(), mDataSet);
         mAdapter.setRecyclerViewOnClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -61,10 +57,8 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
     }
 
 
-
     @Override
     public void onClickListener(View view, final int position) {
-
 
 
         final CadastroVisitaFragment cadastroFragmente = CadastroVisitaFragment.newInstance(mAdapter.getItemVisita(position).getId());

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="20dp">
+
+    <TextView
+        android:id="@+id/tv_tipo_lista_extintor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/colorPrimarytext"
+        android:textSize="22sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/ibMenu" />
+
+    <TextView
+        android:id="@+id/tv_data_lista_extintor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/colorPrimarytext"
+        android:textSize="22sp"
+        android:layout_below="@+id/tv_tipo_lista_extintor"
+        android:layout_toStartOf="@+id/ibMenu" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:src="@drawable/ic_menu_black_24dp"
+        android:id="@+id/ibMenu"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/vw_divider" />
+
+    <View
+        android:id="@+id/vw_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/vermelho"
+        android:layout_below="@+id/tv_data_lista_extintor"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

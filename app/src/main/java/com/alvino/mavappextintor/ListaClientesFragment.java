@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -19,10 +18,11 @@ import com.alvino.mavappextintor.bancodados.Cliente;
 import com.alvino.mavappextintor.bancodados.ClienteProvider;
 import com.alvino.mavappextintor.bancodados.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
-import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.dialog.AlertDialogFragment;
 import com.alvino.mavappextintor.dialog.DateDialog;
+import com.alvino.mavappextintor.dialog.OpcaoClienteDialogFragment;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
+import com.github.clans.fab.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -38,7 +38,8 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
     private ClienteAdapter mAdapter;
     private Date data;
     private Fragment fragment;
-    private Button btCadastro;
+    private FloatingActionButton fab;
+    //private Button btCadastro;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,25 +47,11 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
 
         getActivity().setTitle(getResources().getString(R.string.title_actionbar_lista_cliente));
 
-        v = inflater.inflate(R.layout.fragment_recycler_view_lista_com_button, container, false);
+        v = inflater.inflate(R.layout.fragment_recycler_view_lista_com_floating, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.rv_lista);
 
-        mRecyclerView.setHasFixedSize(true);
-
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        ClienteProvider db = new ClienteProvider(getActivity().getApplicationContext());
-        mDataSet = db.all();
-
-        mAdapter = new ClienteAdapter(getActivity(), (List<Cliente>) mDataSet);
-        mAdapter.setmRecyclerViewOnClickListener(this);
-        mRecyclerView.setAdapter(mAdapter);
-
-        btCadastro = (Button) v.findViewById(R.id.bt_Button);
-        btCadastro.setText(getResources().getText(R.string.txt_cadastro_cliente));
-        btCadastro.setOnClickListener(new View.OnClickListener() {
+        fab = (FloatingActionButton) v.findViewById(R.id.fab_bt);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragment = new CadastroClienteFragment();
@@ -73,6 +60,34 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                         .commit();
             }
         });
+
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if(dy > 0){
+                    fab.hide(true);;
+                }
+                else{
+                    fab.show(true);
+                }
+
+            }
+        });
+
+        ClienteProvider db = new ClienteProvider(getActivity().getApplicationContext());
+        mDataSet = db.all();
+
+        mAdapter = new ClienteAdapter(getFragmentManager(),getActivity(), mDataSet);
+        mAdapter.setRecyclerViewOnClickListener(this);
+        mRecyclerView.setAdapter(mAdapter);
+
         return v;
     }
 
@@ -81,8 +96,10 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
     public void onClickListener(View view, final int position) {
         final Cliente c = mAdapter.getItemCliente(position);
 
+
         switch (view.getId()) {
-            case R.id.ib_agendamento_lista_cliente:
+
+            case R.id.fab_agendar_cliente:
                 final Cliente cliente = c;
                 DatePickerDialog.OnDateSetListener setListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -97,7 +114,7 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                         Visita v = new Visita();
                         v.setCliente(cliente.getId());
                         v.setData_agendada(data);
-                        v.setData_criacao( new Date() );
+                        v.setData_criacao(new Date());
                         v.setAtendido("nao");
 
                         VisitaProvider bd = new VisitaProvider(getActivity());
@@ -115,7 +132,8 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                 dateDialog.show(getFragmentManager(), "DATEDIALOG");
 
                 break;
-            case R.id.ib_editar_lista_cliente:
+
+            case R.id.fab_editar_cliente:
 
 
                 fragment = new CadastroClienteFragment().newInstance(
@@ -133,7 +151,7 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                         .commit();
 
                 break;
-            case R.id.ib_remover_lista_cliente:
+            case R.id.fab_deletar_cliente:
                 List<Visita> visitaList = (List<Visita>) new VisitaProvider(getActivity()).allCliente(c.getId());
                 if (visitaList.size() != 0) {
                     Toast to = Toast.makeText(getActivity(), "Cliente possui dados de agendamento", Toast.LENGTH_SHORT);
@@ -167,10 +185,11 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                     }
                 };
 
-                AlertDialogFragment dialogFragment = new AlertDialogFragment("", "Remover o usuario", ok, cancelar);
-                dialogFragment.show(getFragmentManager(), "ALERTDIALOGFRAGMENT");
+                AlertDialogFragment alertDialogFragment = new AlertDialogFragment("", "Remover o usuario", ok, cancelar);
+                alertDialogFragment.show(getFragmentManager(), "ALERTDIALOGFRAGMENT");
+
                 break;
-            case R.id.ib_extintor_lista_cliente:
+            case R.id.fab_extintor_cliente:
 
                 fragment = new ListaExtintorFragment().newInstance(c.getId());
 
@@ -181,4 +200,5 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
         }
 
     }
+
 }

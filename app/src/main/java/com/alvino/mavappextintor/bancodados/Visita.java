@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by alvino on 21/08/15.
  */
-public class Visita {
+public class Visita implements Comparable<Visita> {
 
 
     private Long id;
@@ -106,7 +106,7 @@ public class Visita {
 
         valores.put(colunas[0], this.getId());
         valores.put(colunas[1], this.getCliente());
-        valores.put(colunas[2], SimplesDataFormatada.formatar(this.getData_agendada(),SimplesDataFormatada.YYYYMDD));
+        valores.put(colunas[2], SimplesDataFormatada.formatar(this.getData_agendada(), SimplesDataFormatada.YYYYMDD));
         valores.put(colunas[3], SimplesDataFormatada.formatar(this.getData_criacao(), SimplesDataFormatada.YYYYMDD));
         valores.put(colunas[4], SimplesDataFormatada.formatar(this.getData_atendimento(), SimplesDataFormatada.YYYYMDD));
         valores.put(colunas[5], this.getAtendido());
@@ -119,7 +119,7 @@ public class Visita {
         Date hoje = new Date();
         Date agendada = this.getData_agendada();
         long milissegundos = agendada.getTime() - hoje.getTime();
-        Long dias = new Long( milissegundos / (24 * 60 * 60 * 1000) );
+        Long dias = new Long(milissegundos / (24 * 60 * 60 * 1000));
         return dias;
     }
 
@@ -129,6 +129,19 @@ public class Visita {
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public int compareTo(Visita another) {
+        long t = this.getData_agendada().getTime();
+        long o = another.getData_agendada().getTime();
+        if (t < 0) {
+            return -1;
+        } else if (t > 0) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 }
