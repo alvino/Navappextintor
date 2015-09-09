@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.alvino.mavappextintor.bancodados.Extintor;
+import com.alvino.mavappextintor.domain.Extintor;
 import com.alvino.mavappextintor.bancodados.ExtintorProvider;
 import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.dialog.DateDialog;

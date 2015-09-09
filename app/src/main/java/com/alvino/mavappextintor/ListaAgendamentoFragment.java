@@ -10,12 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alvino.mavappextintor.adapter.AgendamentoAdapter;
-import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOnClickListener {

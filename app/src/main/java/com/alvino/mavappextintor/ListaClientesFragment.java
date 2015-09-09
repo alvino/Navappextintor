@@ -14,13 +14,12 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.alvino.mavappextintor.adapter.ClienteAdapter;
-import com.alvino.mavappextintor.bancodados.Cliente;
+import com.alvino.mavappextintor.domain.Cliente;
 import com.alvino.mavappextintor.bancodados.ClienteProvider;
-import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
 import com.alvino.mavappextintor.dialog.AlertDialogFragment;
 import com.alvino.mavappextintor.dialog.DateDialog;
-import com.alvino.mavappextintor.dialog.OpcaoClienteDialogFragment;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 import com.github.clans.fab.FloatingActionButton;
 

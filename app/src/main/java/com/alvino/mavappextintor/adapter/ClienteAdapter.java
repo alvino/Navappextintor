@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.alvino.mavappextintor.R;
-import com.alvino.mavappextintor.bancodados.Cliente;
+import com.alvino.mavappextintor.domain.Cliente;
 import com.alvino.mavappextintor.dialog.OpcaoClienteDialogFragment;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 

@@ -6,12 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.alvino.mavappextintor.bancodados.inteface.CRUD;
+import com.alvino.mavappextintor.domain.Cliente;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by alvino on 21/08/15.

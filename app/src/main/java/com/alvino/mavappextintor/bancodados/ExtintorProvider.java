@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.alvino.mavappextintor.bancodados.inteface.CRUD;
 import com.alvino.mavappextintor.core.SimplesDataFormatada;
+import com.alvino.mavappextintor.domain.Extintor;
 
 import java.util.ArrayList;
 import java.util.List;

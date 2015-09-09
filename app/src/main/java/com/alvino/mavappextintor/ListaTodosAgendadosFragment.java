@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alvino.mavappextintor.adapter.TodosAgendamentoAdapter;
-import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
 
 import java.util.List;

@@ -1,11 +1,11 @@
-package com.alvino.mavappextintor.bancodados.inteface;
+package com.alvino.mavappextintor.bancodados;
 
 import java.util.List;
 
 /**
  * Created by alvino on 21/08/15.
  */
-public interface CRUD<T> {
+interface CRUD<T> {
     public long insert(T t);
     public int upgrade(T t);
     public int delete(T t);

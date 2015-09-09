@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.alvino.mavappextintor.adapter.ExtintorAdapter;
-import com.alvino.mavappextintor.bancodados.Extintor;
+import com.alvino.mavappextintor.domain.Extintor;
 import com.alvino.mavappextintor.bancodados.ExtintorProvider;
 import com.alvino.mavappextintor.core.SimplesDataFormatada;
 import com.alvino.mavappextintor.dialog.AlertDialogFragment;

@@ -1,25 +1,17 @@
 package com.alvino.mavappextintor;
 
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.alvino.mavappextintor.bancodados.Extintor;
-import com.alvino.mavappextintor.bancodados.ExtintorProvider;
-import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
-import com.alvino.mavappextintor.core.SimplesDataFormatada;
-import com.alvino.mavappextintor.dialog.DateDialog;
 
 import java.util.Date;
 

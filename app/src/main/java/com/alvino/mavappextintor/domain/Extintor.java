@@ -1,7 +1,8 @@
-package com.alvino.mavappextintor.bancodados;
+package com.alvino.mavappextintor.domain;
 
 import android.content.ContentValues;
 
+import com.alvino.mavappextintor.bancodados.BancoDeDadosProvider;
 import com.alvino.mavappextintor.core.SimplesDataFormatada;
 
 import java.util.Date;

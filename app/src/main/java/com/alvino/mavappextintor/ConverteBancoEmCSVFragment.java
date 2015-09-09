@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.alvino.mavappextintor.bancodados.Cliente;
+import com.alvino.mavappextintor.domain.Cliente;
 import com.alvino.mavappextintor.bancodados.ClienteProvider;
-import com.alvino.mavappextintor.bancodados.Visita;
+import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
 import com.alvino.mavappextintor.core.ManageFile;
 

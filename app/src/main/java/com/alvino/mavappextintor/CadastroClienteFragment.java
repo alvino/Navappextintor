@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.alvino.mavappextintor.bancodados.Cliente;
+import com.alvino.mavappextintor.domain.Cliente;
 import com.alvino.mavappextintor.bancodados.ClienteProvider;
 
 public class CadastroClienteFragment extends Fragment {

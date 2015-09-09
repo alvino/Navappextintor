@@ -10,14 +10,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.alvino.mavappextintor.R;
-import com.alvino.mavappextintor.bancodados.Cliente;
-import com.alvino.mavappextintor.bancodados.Extintor;
+import com.alvino.mavappextintor.domain.Extintor;
 import com.alvino.mavappextintor.core.SimplesDataFormatada;
-import com.alvino.mavappextintor.dialog.OpcaoClienteDialogFragment;
 import com.alvino.mavappextintor.dialog.OpcaoExtintorDialogFragment;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.List;
 
