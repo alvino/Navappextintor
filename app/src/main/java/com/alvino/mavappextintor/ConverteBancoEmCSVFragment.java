@@ -112,18 +112,21 @@ class SalvarArquivoThread extends Thread{
 
         for (Visita v : visitas) {
 
-            contador += 1;
+
 
             Cliente cliente = cp.get(v.getCliente());
             List<Extintor> eList = ep.allCliente(cliente.getId());
             count += eList.size();
             if(eList.size() > 0) {
                 for (Extintor extintor : eList) {
+
                     StringBuffer sb = parseStringBuffer(cliente, v, extintor);
                     txt_arquivo.append(sb.toString());
                     mProgressStatus = (int) ((contador / count) * 100.0);
                     final StringBuffer finalSb = sb;
                     mHandler.post(new Display(mProgressStatus, sb.toString()));
+
+                    contador += 1;
                 }
             } else {
                 StringBuffer sb = parseStringBuffer(cliente, v, null);
@@ -135,7 +138,7 @@ class SalvarArquivoThread extends Thread{
 
 
 
-
+            contador += 1;
         }
 
         salvarArquivo(txt_arquivo);

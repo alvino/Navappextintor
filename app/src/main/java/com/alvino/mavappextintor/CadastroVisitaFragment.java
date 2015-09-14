@@ -3,6 +3,7 @@ package com.alvino.mavappextintor;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class CadastroVisitaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_fragment_visita,container,false);
+
         etManutenido = (EditText) v.findViewById(R.id.etManutenido_dialog_visita);
         etObs = (EditText) v.findViewById(R.id.etObs_dialog_visita);
 
@@ -88,6 +90,13 @@ public class CadastroVisitaFragment extends Fragment {
                 chagerFragment();
             }
         });
+
+        if(mLayout == R.layout.modelo_lista_recyclerview_todos_agendamento){
+            etManutenido.setEnabled(false);
+            etObs.setEnabled(false);
+            btSalvar.setVisibility(Button.INVISIBLE);
+        }
+
         return v;
     }
 
