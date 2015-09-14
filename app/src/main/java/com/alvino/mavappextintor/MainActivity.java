@@ -141,54 +141,13 @@ public class MainActivity extends ActionBarActivity {
          return(0);
      }
 
-     /*
-         @Override
-         public void onNavigationDrawerItemSelected(int position) {
-             // update the main content by replacing fragments
-             FragmentManager fragmentManager = getSupportFragmentManager();
-             Fragment fragment = null;
-             switch (position) {
-                 case 0:
-                     fragment = new ListaAgendamentoFragment();
-                     break;
-                 case 1:
-                     fragment = new ListaClientesFragment();
-                     break;
-                 case 2:
-                     fragment = new ListaTodosAgendadosFragment();
-                     break;
-                 case 3:
-                     fragment = new ConverteBancoEmCSVFragment();
-                     break;
-                 case 4:
-                     fragment = new SobreFragment();
-                     break;
 
-             }
-             if(fragment != null) {
-                 onSectionAttached(position);
-                 fragmentManager.beginTransaction()
-                         .replace(R.id.container, fragment)
-                         .commit();
-             }
-             pressBackPressed = 0;
-         }
-     */
     @Override
     protected void onRestart() {
         super.onRestart();
         pressBackPressed = 0;
     }
 
-    /**
-     * Esta vinculado dentro do metodo MainActivity.onNavigationDrawerItemSelected
-     *
-     * @param number retorna a string corespondente dentro do array nav_drawer_menu
-     */
-    public void onSectionAttached(int number) {
-        //String[] navDrawerMenu = getResources().getStringArray(R.array.nav_drawer_menu);
-        //mTitle = navDrawerMenu[number];
-    }
 
 
     public void restoreActionBar() {
