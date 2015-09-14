@@ -60,32 +60,11 @@ public class ListaAgendamentoFragment extends Fragment implements RecyclerViewOn
     public void onClickListener(View view, final int position) {
 
 
-        final CadastroVisitaFragment cadastroFragmente = CadastroVisitaFragment.newInstance(mAdapter.getItemVisita(position).getId());
+        final CadastroVisitaFragment cadastroFragmente = CadastroVisitaFragment.newInstance(mAdapter.getItemVisita(position).getId(),R.layout.modelo_lista_recyclerview_agendamento);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, cadastroFragmente)
                 .commit();
 
-        /*
-        DialogInterface.OnClickListener ok = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Visita v = mAdapter.getItemVisita(position);
-                v.setData_atendimento( SimplesDataFormatada.formatar(new Date()) );
-                new VisitaProvider(getActivity()).upgrade(v);
-                mAdapter.removeItem(position);
-            }
-        };
 
-        DialogInterface.OnClickListener cancelar = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        };
-        TextView tvCliente = (TextView) view.findViewById(R.id.tv_nome_agendamento);
-        String texto =  "Confirmar visita, para "+ tvCliente.getText();
-        AlertDialogFragment dialogFragment = new AlertDialogFragment("Visita", texto, ok, cancelar);
-        dialogFragment.show(getFragmentManager(), "ALERTDIALOGFRAGMENT");
-        */
     }
 }

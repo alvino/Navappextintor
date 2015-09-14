@@ -95,7 +95,7 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
         @Override
         public void onClick(View v) {
             if(mRecyclerViewOnClickListener != null) {
-                mRecyclerViewOnClickListener.onClickListener(v, getPosition());
+                mRecyclerViewOnClickListener.onClickListener(v, getAdapterPosition());
             }
         }
     }

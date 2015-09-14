@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alvino.mavappextintor.ListaTodosAgendadosFragment;
 import com.alvino.mavappextintor.R;
 import com.alvino.mavappextintor.domain.Cliente;
 import com.alvino.mavappextintor.bancodados.ClienteProvider;
 import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.core.SimplesDataFormatada;
+import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
 import java.util.List;
 
@@ -21,9 +23,10 @@ import java.util.List;
  */
 public class TodosAgendamentoAdapter extends RecyclerView.Adapter<TodosAgendamentoAdapter.ViewHolder> {
 
-    private final List<Visita> mDataSet;
-    private final LayoutInflater mLayoutInflate;
-    private final Context context;
+    private List<Visita> mDataSet;
+    private LayoutInflater mLayoutInflate;
+    private Context context;
+    private RecyclerViewOnClickListener mRecyclerViewOnClickListener;
 
     public TodosAgendamentoAdapter(Context c, List<Visita> mDataSet) {
         this.mDataSet = mDataSet;
@@ -60,7 +63,15 @@ public class TodosAgendamentoAdapter extends RecyclerView.Adapter<TodosAgendamen
         return mDataSet.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public Visita getItemVisita(int position) {
+        return mDataSet.get(position);
+    }
+
+    public void setRecyclerViewOnClickListener(RecyclerViewOnClickListener recyclerViewOnClickListener) {
+        this.mRecyclerViewOnClickListener = recyclerViewOnClickListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView tvNome;
         public TextView tvData;
@@ -70,6 +81,15 @@ public class TodosAgendamentoAdapter extends RecyclerView.Adapter<TodosAgendamen
 
             tvNome = (TextView) itemView.findViewById(R.id.tv_nome_todo_agendamento);
             tvData = (TextView) itemView.findViewById(R.id.tv_data_todo_agendamento);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mRecyclerViewOnClickListener != null){
+                mRecyclerViewOnClickListener.onClickListener(v, getAdapterPosition());
+            }
         }
     }
 }

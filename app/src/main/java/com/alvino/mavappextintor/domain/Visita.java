@@ -137,9 +137,9 @@ public class Visita implements Comparable<Visita> {
     public int compareTo(Visita another) {
         long t = this.getData_agendada().getTime();
         long o = another.getData_agendada().getTime();
-        if (t < 0) {
+        if (t < o) {
             return -1;
-        } else if (t > 0) {
+        } else if (t > o) {
             return 1;
         } else {
             return 0;

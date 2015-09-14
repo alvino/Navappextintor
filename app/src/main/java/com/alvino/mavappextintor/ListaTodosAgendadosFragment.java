@@ -11,16 +11,18 @@ import android.view.ViewGroup;
 import com.alvino.mavappextintor.adapter.TodosAgendamentoAdapter;
 import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
+import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 
+import java.util.Collections;
 import java.util.List;
 
 
-public class ListaTodosAgendadosFragment extends Fragment {
+public class ListaTodosAgendadosFragment extends Fragment implements RecyclerViewOnClickListener {
 
 
     private RecyclerView mRecyclerView;
     private List<Visita> mDataSet;
-    private TodosAgendamentoAdapter mAdpater;
+    private TodosAgendamentoAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,10 +42,25 @@ public class ListaTodosAgendadosFragment extends Fragment {
 
         mDataSet = (List<Visita>) new VisitaProvider(getActivity()).all();
 
-        mAdpater = new TodosAgendamentoAdapter(getActivity(),mDataSet);
-        mRecyclerView.setAdapter(mAdpater);
+        Collections.sort(mDataSet);
+
+        mAdapter = new TodosAgendamentoAdapter(getActivity(),mDataSet);
+        mAdapter.setRecyclerViewOnClickListener(this);
+        mRecyclerView.setAdapter(mAdapter);
 
         return v;
+    }
+
+    @Override
+    public void onClickListener(View view, final int position) {
+
+
+        final CadastroVisitaFragment cadastroFragmente = CadastroVisitaFragment.newInstance(mAdapter.getItemVisita(position).getId(), R.layout.modelo_lista_recyclerview_todos_agendamento);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, cadastroFragmente)
+                .commit();
+
+
     }
 
 }

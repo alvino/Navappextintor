@@ -18,8 +18,10 @@ import java.util.Date;
 public class CadastroVisitaFragment extends Fragment {
 
     private static final String ID = "id";
+    private static final String LAYOUT = "layout";
 
     private Long mId = null;
+    private Integer  mLayout = null;
 
 
     private EditText etManutenido;
@@ -30,10 +32,11 @@ public class CadastroVisitaFragment extends Fragment {
     private View.OnClickListener clickeListener;
 
 
-    public static CadastroVisitaFragment newInstance(Long id) {
+    public static CadastroVisitaFragment newInstance(Long id, int layout) {
         CadastroVisitaFragment fragment = new CadastroVisitaFragment();
         Bundle args = new Bundle();
         if (id != null) args.putLong(ID, id);
+        args.putInt(LAYOUT,layout);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,6 +51,7 @@ public class CadastroVisitaFragment extends Fragment {
             } else {
                 mId = getArguments().getLong(ID);
             }
+            mLayout = getArguments().getInt(LAYOUT);
         }
     }
 
@@ -75,20 +79,30 @@ public class CadastroVisitaFragment extends Fragment {
                 Toast.makeText(getActivity(), "Visita salva na data: " + visita.getData_atendimento(), Toast.LENGTH_SHORT).show();
 
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, new ListaAgendamentoFragment())
-                        .commit();
+                chagerFragment();
             }
         });
         btCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, new ListaAgendamentoFragment())
-                        .commit();
+                chagerFragment();
             }
         });
         return v;
+    }
+
+    void chagerFragment(){
+        Fragment fragment = null;
+        switch (mLayout){
+            case R.layout.modelo_lista_recyclerview_todos_agendamento:
+                fragment = new ListaTodosAgendadosFragment();
+                break;
+            case R.layout.modelo_lista_recyclerview_agendamento:
+                fragment = new ListaAgendamentoFragment();
+                break;
+        }
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment)
+                .commit();
     }
 
     @Override
