@@ -13,18 +13,11 @@
     <string name="title_actionbar_lista_cliente">Lista de Clientes</string>
     <string name="title_actionbar_cadastro_de_usuario">Cadastro de Cliente</string>
     <string name="title_actionbar_todos_os_agendamento">Todas as Visitas Agendadas</string>
-    <string name="title_actionbar_converte_dados_para_csv">Converte Dados P/ CSV</string>
-    <string name="title_actionbar_sobre">Desenvolvido</string>
+    <string name="title_actionbar_converte_dados_para_csv">Converter Dados P/ CSV</string>
+    <string name="title_actionbar_sobre">Desenvolvedor</string>
     <string name="title_actionbar_cadastro_de_extintor">Cadastro de Extintor</string>
     <string name="title_actionbar_lista_extintor">Lista de Extintores</string>
 
-    <array name="nav_drawer_menu">
-        <item>@string/title_actionbar_lista_agendamento</item>
-        <item>@string/title_actionbar_lista_cliente</item>
-        <item>@string/title_actionbar_todos_os_agendamento</item>
-        <item>@string/title_actionbar_converte_dados_para_csv</item>
-        <item>@string/title_actionbar_sobre</item>
-    </array>
 
     <string name="developer_name">Alvino de Oliveira Figueiredo</string>
     <string name="developer_url_google">https://plus.google.com/u/0/+AlvinoFigueiredo/posts</string>
@@ -48,5 +41,4 @@
 
     <string name="txt_cria_csv">Criar CSV</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

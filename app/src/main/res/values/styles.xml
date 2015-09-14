@@ -10,24 +10,26 @@
         <item name="material_drawer_selected_text">@color/colorPrimary</item>
     </style>
 
-    <!--
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/MyStyleActionBar</item>
 
-        <item name="actionBarStyle">@style/MyStyleActionBar</item>
-    </style>
-
-    <style name="MyStyleActionBar" parent="Base.Widget.AppCompat.Light.ActionBar">
-        <item name="android:background">@color/vermelho</item>
-
-        <item name="background">@color/vermelho</item>
-    </style>
-    -->
     <style name="MyNavigationDrawer_footer" parent="TextAppearance.AppCompat.Medium">
         <item name="android:background">@android:color/background_light</item>
 
         <item name="background">@android:color/background_light</item>
     </style>
 
+    <style name="button">
+        <item name="android:textColor" >#ffffff</item>
+        <item name="android:gravity" >center</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@color/background_button</item>
+    </style>
+
+    <style name="editText">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:ems">10</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
 
 </resources>

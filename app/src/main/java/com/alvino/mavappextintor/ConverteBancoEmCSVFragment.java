@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.alvino.mavappextintor.bancodados.ExtintorProvider;
 import com.alvino.mavappextintor.domain.Cliente;
 import com.alvino.mavappextintor.bancodados.ClienteProvider;
+import com.alvino.mavappextintor.domain.Extintor;
 import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
 import com.alvino.mavappextintor.core.ManageFile;
@@ -104,6 +106,7 @@ class SalvarArquivoThread extends Thread{
         count = visitas.size();
 
         ClienteProvider cp = new ClienteProvider(context);
+        ExtintorProvider ep = new ExtintorProvider(context);
 
         //txt_arquivo.append("id cliente, nome, email, telefone, endereco, id agendamento, data, visitado\n");
 
@@ -112,15 +115,27 @@ class SalvarArquivoThread extends Thread{
             contador += 1;
 
             Cliente cliente = cp.get(v.getCliente());
+            List<Extintor> eList = ep.allCliente(cliente.getId());
+            count += eList.size();
+            if(eList.size() > 0) {
+                for (Extintor extintor : eList) {
+                    StringBuffer sb = parseStringBuffer(cliente, v, extintor);
+                    txt_arquivo.append(sb.toString());
+                    mProgressStatus = (int) ((contador / count) * 100.0);
+                    final StringBuffer finalSb = sb;
+                    mHandler.post(new Display(mProgressStatus, sb.toString()));
+                }
+            } else {
+                StringBuffer sb = parseStringBuffer(cliente, v, null);
+                txt_arquivo.append(sb.toString());
+                mProgressStatus = (int) ((contador / count) * 100.0);
+                final StringBuffer finalSb = sb;
+                mHandler.post(new Display(mProgressStatus, sb.toString()));
+            }
 
-            StringBuffer sb = parseStringBuffer(cliente, v);
 
 
-            txt_arquivo.append(sb.toString());
 
-            mProgressStatus = (int) ((contador / count) * 100.0);
-            final StringBuffer finalSb = sb;
-            mHandler.post(new Display(mProgressStatus,sb.toString()));
         }
 
         salvarArquivo(txt_arquivo);
@@ -146,7 +161,7 @@ class SalvarArquivoThread extends Thread{
         mHandler.post(new Display(mProgressStatus,texto));
     }
 
-    private StringBuffer parseStringBuffer(Cliente cliente,Visita visita) {
+    private StringBuffer parseStringBuffer(Cliente cliente,Visita visita, Extintor extintor) {
         StringBuffer sb = new StringBuffer();
         sb.append(cliente.getId() + ",");
         sb.append(cliente.getNome_fantazia() + ",");
@@ -161,6 +176,11 @@ class SalvarArquivoThread extends Thread{
         sb.append(visita.getData_criacao() + ",");
         sb.append(visita.getManutenido() + ",");
         sb.append(visita.getObs() + "");
+        if(extintor != null) {
+            sb.append(","+ extintor.getId() + ",");
+            sb.append(extintor.getTipo() + ",");
+            sb.append(extintor.getData_validade() + "");
+        }
         sb.append("\n");
         return sb;
     }

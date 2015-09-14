@@ -23,11 +23,6 @@ public class MainActivity extends ActionBarActivity {
 
     final static private String TAG = "MainActivity";
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-
     private int pressBackPressed = 0;
     private Toolbar mToolbar = null;
     private Drawer.Result navigationDrawer;
@@ -57,17 +52,18 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
                         for (int count = 0, tam = navigationDrawer.getDrawerItems().size(); count < tam; count++) {
-                            if (count == mPositionClicked && mPositionClicked <= 5) {
+
+                            if (count == mPositionClicked && mPositionClicked < 5) {
                                 PrimaryDrawerItem aux = (PrimaryDrawerItem) navigationDrawer.getDrawerItems().get(count);
-                                //aux.setIcon(getResources().getDrawable(getCorretcDrawerIcon(count, false)));
+                                aux.setIcon(getResources().getDrawable(getCorretcDrawerIcon(count, false)));
                                 break;
                             }
                         }
 
-                      /*  if (i <= 3) {
+                        if (i < 5) {
                             ((PrimaryDrawerItem) iDrawerItem).setIcon(getResources().getDrawable(getCorretcDrawerIcon(i, true)));
                         }
-                      */
+
                         mPositionClicked = i;
                         navigationDrawer.getAdapter().notifyDataSetChanged();
 
@@ -109,31 +105,38 @@ public class MainActivity extends ActionBarActivity {
                 .build();
 
         navigationDrawer.addItem(new PrimaryDrawerItem()
-                .withName(getResources().getString(R.string.title_actionbar_lista_agendamento)));
+                .withName(R.string.title_actionbar_lista_agendamento)
+                .withIcon(R.drawable.ic_view_agenda_black_24dp));
         navigationDrawer.addItem(new PrimaryDrawerItem()
-                .withName(getResources().getString(R.string.title_actionbar_lista_cliente)));
+                .withName(R.string.title_actionbar_lista_cliente)
+                .withIcon(R.drawable.ic_account_box_black_24dp));
         navigationDrawer.addItem(new PrimaryDrawerItem()
-                .withName(getResources().getString(R.string.title_actionbar_todos_os_agendamento)));
+                .withName(R.string.title_actionbar_todos_os_agendamento)
+                .withIcon(R.drawable.ic_view_list_black_24dp));
         navigationDrawer.addItem(new PrimaryDrawerItem()
-                .withName(getString(R.string.title_actionbar_converte_dados_para_csv)));
+                .withName(R.string.title_actionbar_converte_dados_para_csv)
+                .withIcon(R.drawable.ic_settings_backup_restore_black_24dp));
         navigationDrawer.addItem(new PrimaryDrawerItem()
-                .withName(getResources().getString(R.string.title_actionbar_sobre)));
+                .withName(R.string.title_actionbar_sobre)
+                .withIcon(R.drawable.ic_live_help_black_24dp));
 
         navigationDrawer.setSelection(0);
 
     }
 
-    /*
+
      private int getCorretcDrawerIcon(int position, boolean isSelecetd){
          switch(position){
              case 0:
-                 return( isSelecetd ? R.drawable.car_selected_1 : R.drawable.car_1 );
+                 return( isSelecetd ? R.drawable.ic_view_agenda_white_24dp : R.drawable.ic_view_agenda_black_24dp );
              case 1:
-                 return( isSelecetd ? R.drawable.car_selected_2 : R.drawable.car_2 );
+                 return( isSelecetd ? R.drawable.ic_account_box_white_24dp : R.drawable.ic_account_box_black_24dp );
              case 2:
-                 return( isSelecetd ? R.drawable.car_selected_3 : R.drawable.car_3 );
+                 return( isSelecetd ? R.drawable.ic_view_list_white_24dp : R.drawable.ic_view_list_black_24dp );
              case 3:
-                 return( isSelecetd ? R.drawable.car_selected_4 : R.drawable.car_4 );
+                 return( isSelecetd ? R.drawable.ic_settings_backup_restore_white_24dp : R.drawable.ic_settings_backup_restore_black_24dp );
+             case 4:
+                 return( isSelecetd ? R.drawable.ic_live_help_white_24dp : R.drawable.ic_live_help_black_24dp );
          }
          return(0);
      }

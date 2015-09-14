@@ -8,12 +8,9 @@
         android:id="@+id/etManutenido_dialog_visita"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_weight="1.00"
-        android:ems="10"
         android:hint="@string/txt_manutenido"
         android:inputType="text"
-        android:padding="10dp">
+        style="@style/editText">
 
         <requestFocus />
     </EditText>
@@ -28,10 +25,8 @@
             android:id="@+id/etObs_dialog_visita"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:ems="10"
             android:hint="@string/txt_obs"
-            android:padding="10dp" />
+            style="@style/editText"/>
 
     </ScrollView>
 
@@ -47,14 +42,16 @@
             android:id="@+id/cancelar_dialog_visita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancelar" />
+            android:text="Cancelar"
+            style="@style/button"/>
 
         <Button
             android:id="@+id/salvar_dialog_visita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="150dp"
-            android:text="Salvar" />
+            android:text="Salvar"
+            style="@style/button"/>
     </LinearLayout>
 
 

@@ -9,12 +9,9 @@
         android:id="@+id/txtTipo_cadastro_extintor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:textColor="@color/primary_text"
-        android:ems="10"
         android:hint="@string/txt_tipo"
-        android:inputType="text">
+        android:inputType="text"
+        style="@style/editText">
 
         <requestFocus />
     </EditText>
@@ -29,13 +26,11 @@
             android:id="@+id/txtData_validade_cadastro_extintor"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@color/primary_text"
-            android:padding="10dp"
             android:layout_weight="2"
             android:editable="false"
-            android:ems="10"
             android:hint="@string/txt_data_validade"
-            android:inputType="date" />
+            android:inputType="date"
+            style="@style/editText"/>
 
         <ImageButton
             android:id="@+id/ib_calendario_cadastro_extintor"
@@ -59,20 +54,16 @@
             android:id="@+id/cancelar_cadastro_extintor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_margin="10dp"
-            android:background="@color/background_button"
-            android:text="Cancelar" />
+            android:text="Cancelar"
+            style="@style/button"/>
 
         <Button
             android:id="@+id/salvar_cadastro_extintor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/background_button"
-            android:padding="10dp"
-            android:layout_margin="10dp"
             android:width="150dp"
-            android:text="Salvar" />
+            android:text="Salvar"
+            style="@style/button"/>
     </LinearLayout>
 
 </LinearLayout>

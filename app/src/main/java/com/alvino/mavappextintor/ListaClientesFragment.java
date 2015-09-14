@@ -4,22 +4,25 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.alvino.mavappextintor.adapter.ClienteAdapter;
-import com.alvino.mavappextintor.domain.Cliente;
 import com.alvino.mavappextintor.bancodados.ClienteProvider;
-import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.bancodados.VisitaProvider;
 import com.alvino.mavappextintor.dialog.AlertDialogFragment;
 import com.alvino.mavappextintor.dialog.DateDialog;
+import com.alvino.mavappextintor.domain.Cliente;
+import com.alvino.mavappextintor.domain.Visita;
 import com.alvino.mavappextintor.inteface.RecyclerViewOnClickListener;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -64,26 +67,26 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(dy > 0){
-                    fab.hide(true);;
-                }
-                else{
+                if (dy > 0) {
+                    fab.hide(true);
+                } else {
                     fab.show(true);
                 }
+
 
             }
         });
 
         ClienteProvider db = new ClienteProvider(getActivity().getApplicationContext());
         mDataSet = db.all();
-
-        mAdapter = new ClienteAdapter(getFragmentManager(),getActivity(), mDataSet);
+        mAdapter = new ClienteAdapter(getFragmentManager(), getActivity(), mDataSet);
         mAdapter.setRecyclerViewOnClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -146,7 +149,6 @@ public class ListaClientesFragment extends Fragment implements RecyclerViewOnCli
                 );
 
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment)
-                        .addToBackStack("ListaCliente")
                         .commit();
 
                 break;

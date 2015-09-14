@@ -91,7 +91,7 @@ public class ListaExtintorFragment extends Fragment implements RecyclerViewOnCli
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(dy < 0){
+                if(dy > 0){
                     fab.hide(true);
                 } else {
                     fab.show(true);
